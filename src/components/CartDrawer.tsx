@@ -13,6 +13,7 @@ export const CartDrawer: React.FC = () => {
     discountAmount,
     shippingFee,
     grandTotal,
+    appliedCoupon,
     cartDrawerOpen,
     setCartDrawerOpen,
     navigateTo
@@ -209,7 +210,7 @@ export const CartDrawer: React.FC = () => {
 
                   {discountAmount > 0 && (
                     <div className="flex justify-between text-emerald-600 font-semibold">
-                      <span>Discount (Promo AURA30)</span>
+                      <span>Discount (Promo {appliedCoupon || 'SWAMI30'})</span>
                       <span>-₹{discountAmount.toLocaleString('en-IN')}</span>
                     </div>
                   )}

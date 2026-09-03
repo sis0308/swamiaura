@@ -36,7 +36,7 @@ export const ServicesSection: React.FC = () => {
         <div className="text-center max-w-3xl mx-auto mb-16 space-y-3">
           <div className="inline-flex items-center gap-1.5 bg-neutral-100 text-neutral-800 text-xs font-bold uppercase tracking-widest px-3 py-1 rounded-full">
             <Sparkles className="w-3.5 h-3.5" />
-            <span>Why Choose AURA THREADS</span>
+            <span>Why Choose SWAMI THREADS</span>
           </div>
           <h2 className="text-3xl sm:text-4xl font-extrabold text-neutral-950 font-display tracking-tight">
             Tailored Excellence In Every Stitch

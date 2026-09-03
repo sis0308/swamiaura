@@ -83,7 +83,7 @@ export const ServicesView: React.FC = () => {
             Manufacturing & Retail Services
           </h1>
           <p className="text-sm sm:text-base text-neutral-400 max-w-2xl">
-            From single bespoke streetwear units to large enterprise workwear runs, discover how AURA THREADS delivers uncompromised textile quality.
+            From single bespoke streetwear units to large enterprise workwear runs, discover how SWAMI THREADS delivers uncompromised textile quality.
           </p>
         </div>
       </div>

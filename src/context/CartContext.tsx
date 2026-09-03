@@ -106,7 +106,7 @@ export const CartProvider: React.FC<{ children: ReactNode }> = ({ children }) =>
   const [toasts, setToasts] = useState<ToastMessage[]>([]);
 
   // Coupons
-  const [appliedCoupon, setAppliedCoupon] = useState<string | null>('AURA30');
+  const [appliedCoupon, setAppliedCoupon] = useState<string | null>('SWAMI30');
 
   const showToast = (title: string, message?: string, type: 'success' | 'info' | 'error' = 'success') => {
     const id = Math.random().toString(36).substring(2, 9);
@@ -199,8 +199,8 @@ export const CartProvider: React.FC<{ children: ReactNode }> = ({ children }) =>
 
   const applyCoupon = (code: string) => {
     const cleanCode = code.trim().toUpperCase();
-    if (cleanCode === 'AURA30') {
-      setAppliedCoupon('AURA30');
+    if (cleanCode === 'SWAMI30' || cleanCode === 'AURA30') {
+      setAppliedCoupon('SWAMI30');
       showToast('Coupon Applied!', 'Enjoy 30% OFF on your entire order', 'success');
       return { success: true, message: '30% discount applied successfully!' };
     } else if (cleanCode === 'FIRST10') {
@@ -212,7 +212,7 @@ export const CartProvider: React.FC<{ children: ReactNode }> = ({ children }) =>
       showToast('Coupon Applied!', 'Free shipping unlocked', 'success');
       return { success: true, message: 'Free standard shipping applied!' };
     } else {
-      showToast('Invalid Coupon Code', 'Please try AURA30 or FIRST10', 'error');
+      showToast('Invalid Coupon Code', 'Please try SWAMI30 or FIRST10', 'error');
       return { success: false, message: 'Invalid or expired coupon code' };
     }
   };
@@ -223,7 +223,7 @@ export const CartProvider: React.FC<{ children: ReactNode }> = ({ children }) =>
   };
 
   let discountAmount = 0;
-  if (appliedCoupon === 'AURA30') {
+  if (appliedCoupon === 'SWAMI30' || appliedCoupon === 'AURA30') {
     discountAmount = Math.round(subtotal * 0.3);
   } else if (appliedCoupon === 'FIRST10') {
     discountAmount = Math.round(subtotal * 0.1);

@@ -235,7 +235,7 @@ export const AdminView: React.FC = () => {
 
     const result = verifyAdminOtp(otpInput);
     if (result.success) {
-      showToast('Admin Access Granted', 'Welcome to the AURA THREADS Executive Portal', 'success');
+      showToast('Admin Access Granted', 'Welcome to the SWAMI THREADS Executive Portal', 'success');
     } else {
       setAuthError(result.message);
     }
@@ -649,7 +649,7 @@ export const AdminView: React.FC = () => {
     // Notify buyer via WhatsApp if option checked
     if (cancelNotifyWhatsApp) {
       const rawPhone = cancelModalOrder.customerPhone.replace(/\D/g, '');
-      const waMsg = `Hello ${cancelModalOrder.customerName},\nThis is AURA THREADS regarding your Order #${cancelModalOrder.orderNumber}.\n\nYour order has been CANCELLED.\nReason: ${finalReason}\nOrder Total: ₹${cancelModalOrder.grandTotal.toLocaleString('en-IN')}\n\nIf you have questions, require a refund or want to place a new order, feel free to reply directly to this message.\n\nTeam AURA THREADS`;
+      const waMsg = `Hello ${cancelModalOrder.customerName},\nThis is SWAMI THREADS regarding your Order #${cancelModalOrder.orderNumber}.\n\nYour order has been CANCELLED.\nReason: ${finalReason}\nOrder Total: ₹${cancelModalOrder.grandTotal.toLocaleString('en-IN')}\n\nIf you have questions, require a refund or want to place a new order, feel free to reply directly to this message.\n\nTeam SWAMI THREADS`;
       window.open(`https://wa.me/${rawPhone}?text=${encodeURIComponent(waMsg)}`, '_blank');
     }
 
@@ -882,12 +882,12 @@ export const AdminView: React.FC = () => {
         <div className="max-w-7xl mx-auto flex flex-col sm:flex-row items-center justify-between gap-4">
           <div className="flex items-center gap-3">
             <div className="w-7 h-7 bg-white text-black flex items-center justify-center font-serif font-bold text-sm">
-              A
+              S
             </div>
             <div>
               <div className="flex items-center gap-2">
                 <span className="font-serif font-bold tracking-wide uppercase text-sm">
-                  AURA THREADS Admin
+                  SWAMI THREADS Admin
                 </span>
                 <span className="bg-emerald-500/20 text-emerald-400 text-[9px] font-mono px-1.5 py-0.2 border border-emerald-500/40 uppercase">
                   Protected Session
@@ -1225,7 +1225,7 @@ export const AdminView: React.FC = () => {
                       <div className="flex items-center gap-2 shrink-0 ml-3">
                         <a
                           href={`https://wa.me/${order.customerPhone.replace(/\D/g, '')}?text=${encodeURIComponent(
-                            `Hello ${order.customerName},\nThis is AURA THREADS regarding your Order #${order.orderNumber}.\nStatus: ${order.status.toUpperCase()}\nTotal: ₹${order.grandTotal}\nItems: ${order.items.map(i => `${i.productName} (${i.size}, ${i.color}) x${i.quantity}`).join(', ')}.\nTracking: Your order has been registered in our system and is being processed!`
+                            `Hello ${order.customerName},\nThis is SWAMI THREADS regarding your Order #${order.orderNumber}.\nStatus: ${order.status.toUpperCase()}\nTotal: ₹${order.grandTotal}\nItems: ${order.items.map(i => `${i.productName} (${i.size}, ${i.color}) x${i.quantity}`).join(', ')}.\nTracking: Your order has been registered in our system and is being processed!`
                           )}`}
                           target="_blank"
                           rel="noreferrer"
@@ -2981,7 +2981,7 @@ export const AdminView: React.FC = () => {
                         </button>
                         <a
                           href={`https://wa.me/${selectedOrderForDetail.customerPhone.replace(/\D/g, '')}?text=${encodeURIComponent(
-                            `Hello ${selectedOrderForDetail.customerName},\nThis is AURA THREADS regarding your order #${selectedOrderForDetail.orderNumber}.\n\nYour order is CANCELLED.\nReason: ${selectedOrderForDetail.cancellationReason || 'Store Admin Cancellation'}\nTotal Amount: ₹${selectedOrderForDetail.grandTotal.toLocaleString('en-IN')}\n\nPlease reply if you need any assistance or have questions.\nTeam AURA THREADS`
+                            `Hello ${selectedOrderForDetail.customerName},\nThis is SWAMI THREADS regarding your order #${selectedOrderForDetail.orderNumber}.\n\nYour order is CANCELLED.\nReason: ${selectedOrderForDetail.cancellationReason || 'Store Admin Cancellation'}\nTotal Amount: ₹${selectedOrderForDetail.grandTotal.toLocaleString('en-IN')}\n\nPlease reply if you need any assistance or have questions.\nTeam SWAMI THREADS`
                           )}`}
                           target="_blank"
                           rel="noreferrer"
@@ -3017,7 +3017,7 @@ export const AdminView: React.FC = () => {
                 <div className="flex items-center gap-3 pt-2">
                   <a
                     href={`https://wa.me/${selectedOrderForDetail.customerPhone.replace(/\D/g, '')}?text=${encodeURIComponent(
-                      `Hello ${selectedOrderForDetail.customerName}, this is AURA THREADS regarding your order #${selectedOrderForDetail.orderNumber}. We have updated your status to ${selectedOrderForDetail.status.toUpperCase()}.`
+                      `Hello ${selectedOrderForDetail.customerName}, this is SWAMI THREADS regarding your order #${selectedOrderForDetail.orderNumber}. We have updated your status to ${selectedOrderForDetail.status.toUpperCase()}.`
                     )}`}
                     target="_blank"
                     rel="noreferrer"

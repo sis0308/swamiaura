@@ -87,10 +87,10 @@ export const Footer: React.FC = () => {
             <div>
               <div className="flex items-center gap-2.5">
                 <div className="w-8 h-8 bg-white text-black font-serif font-bold text-lg flex items-center justify-center">
-                  A
+                  S
                 </div>
                 <span className="font-serif font-bold text-2xl tracking-tight uppercase text-white">
-                  AURA THREADS
+                  SWAMI THREADS
                 </span>
               </div>
               <p className="text-xs text-neutral-400 mt-3 leading-relaxed max-w-sm">
@@ -312,8 +312,8 @@ export const Footer: React.FC = () => {
                 <Mail className="w-3.5 h-3.5 text-neutral-500 mt-0.5 shrink-0" />
                 <div>
                   <p className="text-neutral-500 text-[9px] uppercase font-bold tracking-wider">Email</p>
-                  <a href="mailto:contact@aurathreads.com" className="text-white hover:underline">
-                    contact@aurathreads.com
+                  <a href="mailto:contact@swamithreads.com" className="text-white hover:underline">
+                    contact@swamithreads.com
                   </a>
                 </div>
               </li>
@@ -347,7 +347,7 @@ export const Footer: React.FC = () => {
 
       {/* Copyright Bottom Bar */}
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 pt-8 border-t border-neutral-900 flex flex-col sm:flex-row items-center justify-between gap-4 text-[11px] text-neutral-500 font-mono">
-        <p>© 2026 AURA THREADS. All Rights Reserved.</p>
+        <p>© 2026 SWAMI THREADS. All Rights Reserved.</p>
         <div className="flex items-center gap-5 flex-wrap justify-center sm:justify-end">
           <span className="hover:text-neutral-300 cursor-pointer">Privacy Policy</span>
           <span className="hover:text-neutral-300 cursor-pointer">Terms & Conditions</span>

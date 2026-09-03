@@ -135,10 +135,10 @@ export const CheckoutView: React.FC = () => {
       .join('\n');
 
     // Prepare direct message for Buyer's Phone
-    const buyerMessage = `🛍️ *AURA THREADS - ORDER CONFIRMATION*
+    const buyerMessage = `🛍️ *SWAMI THREADS - ORDER CONFIRMATION*
 
 Hello *${formData.name}*,
-Thank you for your order with AURA THREADS! Your order has been placed and registered successfully.
+Thank you for your order with SWAMI THREADS! Your order has been placed and registered successfully.
 
 📋 *Order Details:*
 • *Order ID:* #${orderId}
@@ -155,7 +155,7 @@ ${discountAmount > 0 ? `• Coupon Discount: -₹${discountAmount}\n` : ''}• D
 
 📦 *Status:* Confirmed & Preparing for Dispatch
 🚚 Expected Delivery: 2-3 Business Days
-Support & Help: +91 98765 43210 (AURA THREADS Bengaluru Studio)`;
+Support & Help: +91 98765 43210 (SWAMI THREADS Bengaluru Studio)`;
 
     const directBuyerWaUrl = `https://wa.me/${buyerPhoneWithCountryCode}?text=${encodeURIComponent(buyerMessage)}`;
     setBuyerWhatsAppUrl(directBuyerWaUrl);

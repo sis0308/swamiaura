@@ -72,7 +72,7 @@ export const ProductDetailView: React.FC<ProductDetailViewProps> = ({ productId 
   };
 
   const handleWhatsAppInquiry = () => {
-    const message = `Hi AURA THREADS! I would like to buy/inquire about the *${product.name}* in size *${selectedSize}*, color *${selectedColor}* (₹${product.price}). Product Link: ${window.location.href}`;
+    const message = `Hi SWAMI THREADS! I would like to buy/inquire about the *${product.name}* in size *${selectedSize}*, color *${selectedColor}* (₹${product.price}). Product Link: ${window.location.href}`;
     window.open(`https://wa.me/919876543210?text=${encodeURIComponent(message)}`, '_blank');
   };
 
