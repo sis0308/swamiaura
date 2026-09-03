@@ -1,0 +1,55 @@
+{
+  "entities": {
+    "Product": {
+      "title": "Product",
+      "description": "Store T-shirt product catalog item",
+      "type": "object",
+      "properties": {
+        "name": { "type": "string", "description": "Product name" },
+        "price": { "type": "number", "description": "Selling price" },
+        "originalPrice": { "type": "number", "description": "MRP" },
+        "images": { "type": "array", "description": "List of image URLs" },
+        "colors": { "type": "array", "description": "List of color swatches" },
+        "sizes": { "type": "array", "description": "List of available sizes" },
+        "category": { "type": "string", "description": "Category" },
+        "tags": { "type": "array", "description": "Tags" },
+        "description": { "type": "string", "description": "Product description" },
+        "isNewArrival": { "type": "boolean", "description": "New arrival flag" },
+        "isBestSeller": { "type": "boolean", "description": "Best seller flag" },
+        "inStock": { "type": "boolean", "description": "Stock status" },
+        "material": { "type": "string", "description": "Material" },
+        "gsm": { "type": "string", "description": "GSM" },
+        "fit": { "type": "string", "description": "Fit style" },
+        "sku": { "type": "string", "description": "SKU" }
+      },
+      "required": ["name", "price", "images", "sizes"]
+    },
+    "Order": {
+      "title": "Order",
+      "description": "Customer purchase order",
+      "type": "object",
+      "properties": {
+        "orderNumber": { "type": "string", "description": "Order reference code" },
+        "customerName": { "type": "string", "description": "Customer full name" },
+        "customerEmail": { "type": "string", "description": "Customer email" },
+        "customerPhone": { "type": "string", "description": "Customer phone" },
+        "items": { "type": "array", "description": "Order items list" },
+        "subtotal": { "type": "number", "description": "Subtotal" },
+        "shippingFee": { "type": "number", "description": "Shipping fee" },
+        "discount": { "type": "number", "description": "Discount applied" },
+        "grandTotal": { "type": "number", "description": "Grand total" },
+        "paymentMethod": { "type": "string", "description": "Payment method" },
+        "paymentStatus": { "type": "string", "description": "Payment status" },
+        "status": { "type": "string", "description": "Order status" },
+        "createdAt": { "type": "string", "description": "Creation timestamp" },
+        "shippingAddress": { "type": "object", "description": "Shipping address details" },
+        "orderNotes": { "type": "string", "description": "Customer notes" },
+        "trackingNumber": { "type": "string", "description": "Tracking number" },
+        "notesFromAdmin": { "type": "string", "description": "Admin notes" },
+        "cancellationReason": { "type": "string", "description": "Cancellation reason" },
+        "cancelledAt": { "type": "string", "description": "Cancellation timestamp" }
+      },
+      "required": ["orderNumber", "customerName", "customerPhone", "items", "grandTotal", "status"]
+    }
+  }
+}
