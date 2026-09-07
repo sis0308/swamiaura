@@ -72,7 +72,7 @@ export const Header: React.FC = () => {
               PROMO
             </span>
             <span className="text-neutral-300 text-[11px]">
-              Flat 30% Off With Code <strong className="text-white font-mono bg-neutral-900 px-1 py-0.5 border border-neutral-700">SWAMI30</strong> · Free Delivery Over ₹999
+              Flat 30% Off With Code <strong className="text-white font-mono bg-neutral-900 px-1 py-0.5 border border-neutral-700">TEEZOON30</strong> · Free Delivery Over ₹999
             </span>
           </div>
 
@@ -137,12 +137,15 @@ export const Header: React.FC = () => {
                 className="flex items-center gap-2.5 text-left group"
                 id="brand-logo-btn"
               >
-                <div className="w-8 h-8 bg-black flex items-center justify-center rounded-none shadow-xs">
-                  <span className="text-white font-serif font-bold text-lg">S</span>
-                </div>
+                <img
+                  src="/teezoon-logo.jpg"
+                  alt="TEEZOON Logo"
+                  className="w-9 h-9 sm:w-10 sm:h-10 object-contain rounded-md border border-neutral-200 bg-white"
+                  referrerPolicy="no-referrer"
+                />
                 <div className="flex flex-col">
                   <span className="font-serif font-bold text-xl sm:text-2xl tracking-tight uppercase text-black leading-none">
-                    SWAMI THREADS
+                    TEEZOON
                   </span>
                   <span className="text-[9px] uppercase tracking-[0.25em] text-gray-400 font-semibold mt-0.5">
                     Editorial Apparel
@@ -363,12 +366,15 @@ export const Header: React.FC = () => {
                 {/* Mobile Header Top */}
                 <div className="p-4 border-b border-neutral-200 flex items-center justify-between bg-neutral-50">
                   <div className="flex items-center gap-2.5">
-                    <div className="w-8 h-8 bg-neutral-900 rounded-md flex items-center justify-center text-white font-display font-black text-lg">
-                      S
-                    </div>
+                    <img
+                      src="/teezoon-logo.jpg"
+                      alt="TEEZOON Logo"
+                      className="w-9 h-9 object-contain rounded-md border border-neutral-200 bg-white"
+                      referrerPolicy="no-referrer"
+                    />
                     <div>
                       <span className="font-display font-bold text-lg text-neutral-900 block leading-tight">
-                        SWAMI THREADS
+                        TEEZOON
                       </span>
                       <span className="text-[10px] text-neutral-500 uppercase tracking-widest block">
                         Premium Apparel
@@ -444,7 +450,7 @@ export const Header: React.FC = () => {
               {/* Mobile Drawer Bottom Actions */}
               <div className="p-4 border-t border-neutral-200 bg-neutral-50 space-y-2">
                 <a
-                  href="https://wa.me/919876543210?text=Hi%20Swami%20Threads!%20I%20would%20like%20to%20order%20T-Shirts."
+                  href="https://wa.me/919876543210?text=Hi%20TEEZOON!%20I%20would%20like%20to%20order%20T-Shirts."
                   target="_blank"
                   rel="noopener noreferrer"
                   className="w-full flex items-center justify-center gap-2 bg-emerald-600 hover:bg-emerald-700 text-white py-3 text-sm font-semibold transition-colors"

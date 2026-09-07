@@ -3,7 +3,7 @@ import { CustomerOrder } from '../types';
 export const INITIAL_ORDERS: CustomerOrder[] = [
   {
     id: 'ord-1001',
-    orderNumber: 'SWAMI-849201',
+    orderNumber: 'TZ-849201',
     createdAt: '2026-09-02T18:30:00.000Z',
     status: 'pending',
     customerName: 'Aarav Sharma',
@@ -45,12 +45,12 @@ export const INITIAL_ORDERS: CustomerOrder[] = [
     discountAmount: 599,
     shippingFee: 0,
     grandTotal: 1398,
-    couponCode: 'SWAMI30',
+    couponCode: 'TEEZOON30',
     orderNotes: 'Please ring the doorbell and leave with security if unavailable.'
   },
   {
     id: 'ord-1002',
-    orderNumber: 'SWAMI-673192',
+    orderNumber: 'TZ-673192',
     createdAt: '2026-09-01T14:15:00.000Z',
     status: 'processing',
     customerName: 'Priya Sundaram',
@@ -127,13 +127,13 @@ export const INITIAL_ORDERS: CustomerOrder[] = [
     discountAmount: 569,
     shippingFee: 0,
     grandTotal: 1328,
-    couponCode: 'SWAMI30',
+    couponCode: 'TEEZOON30',
     trackingNumber: 'BLRD-EXP-8839210',
     orderNotes: 'BlueDart Express shipment dispatched.'
   },
   {
     id: 'ord-1004',
-    orderNumber: 'SWAMI-449102',
+    orderNumber: 'TZ-449102',
     createdAt: '2026-08-28T09:20:00.000Z',
     status: 'delivered',
     customerName: 'Ananya Verma',
@@ -163,7 +163,7 @@ export const INITIAL_ORDERS: CustomerOrder[] = [
     discountAmount: 240,
     shippingFee: 79,
     grandTotal: 638,
-    couponCode: 'SWAMI30',
+    couponCode: 'TEEZOON30',
     trackingNumber: 'DELV-IND-40912',
     orderNotes: 'Delivered and cash collected successfully.'
   }

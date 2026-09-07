@@ -4,7 +4,7 @@ import { MessageCircle, PhoneCall } from 'lucide-react';
 export const WhatsAppFloatingButton: React.FC = () => {
   const phoneNumber = '+919876543210';
   const whatsappUrl = `https://wa.me/${phoneNumber.replace('+', '')}?text=${encodeURIComponent(
-    'Hi SWAMI THREADS! I would like to inquire about your premium T-Shirts.'
+    'Hi TEEZOON! I would like to inquire about your premium T-Shirts.'
   )}`;
 
   return (

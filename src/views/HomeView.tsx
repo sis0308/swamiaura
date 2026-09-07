@@ -153,7 +153,7 @@ export const HomeView: React.FC = () => {
                 Not Just Another Cotton Tee. A Masterpiece of Textile Architecture.
               </h3>
               <p className="text-sm text-neutral-600 leading-relaxed">
-                Most commercial tees use flimsy 140–160 GSM fabrics that collapse after two washes. At SWAMI THREADS, we exclusively spin 240 GSM extra-long staple combed cotton and French Terry knits.
+                Most commercial tees use flimsy 140–160 GSM fabrics that collapse after two washes. At TEEZOON, we exclusively spin 240 GSM extra-long staple combed cotton and French Terry knits.
               </p>
               
               <div className="grid grid-cols-2 gap-4 pt-2">
@@ -204,7 +204,7 @@ export const HomeView: React.FC = () => {
               Get In Touch
             </span>
             <h2 className="text-3xl sm:text-4xl font-extrabold text-neutral-950 font-display">
-              Contact SWAMI THREADS
+              Contact TEEZOON
             </h2>
             <p className="text-sm text-neutral-600">
               Have questions about sizing, custom printing, or corporate bulk orders? We're available 24/7.
@@ -217,7 +217,7 @@ export const HomeView: React.FC = () => {
             <div className="lg:col-span-5 bg-white rounded-3xl p-8 border border-neutral-200 shadow-sm space-y-8 text-left">
               <div>
                 <span className="font-display font-extrabold text-2xl text-neutral-950 block">
-                  SWAMI THREADS APPAREL
+                  TEEZOON APPAREL
                 </span>
                 <p className="text-xs text-neutral-500 mt-1">
                   Premium Streetwear & Contemporary T-Shirt Manufacturer
@@ -256,8 +256,8 @@ export const HomeView: React.FC = () => {
                   </div>
                   <div>
                     <p className="text-xs text-neutral-500 font-semibold uppercase">Email Inquiries</p>
-                    <a href="mailto:contact@swamithreads.com" className="text-base font-bold text-neutral-950 hover:underline">
-                      contact@swamithreads.com
+                    <a href="mailto:contact@teezoon.com" className="text-base font-bold text-neutral-950 hover:underline">
+                      contact@teezoon.com
                     </a>
                   </div>
                 </div>

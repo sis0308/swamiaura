@@ -66,7 +66,7 @@ export const ContactView: React.FC = () => {
             Customer Care & Flagship Studio
           </span>
           <h1 className="text-3xl sm:text-5xl font-extrabold font-display tracking-tight text-white">
-            Get In Touch With SWAMI THREADS
+            Get In Touch With TEEZOON
           </h1>
           <p className="text-sm sm:text-base text-neutral-400 max-w-2xl">
             Whether you need sizing advice, order tracking updates, or custom merchandise production, our team is always ready.
@@ -83,7 +83,7 @@ export const ContactView: React.FC = () => {
           <div className="lg:col-span-5 bg-white rounded-3xl p-8 border border-neutral-200 shadow-sm space-y-8">
             <div>
               <h2 className="text-2xl font-extrabold font-display text-neutral-950">
-                SWAMI THREADS APPAREL
+                TEEZOON APPAREL
               </h2>
               <p className="text-xs text-neutral-500 mt-1">
                 Direct Communication Channels
@@ -123,8 +123,8 @@ export const ContactView: React.FC = () => {
                 </div>
                 <div>
                   <p className="text-xs text-neutral-500 font-semibold uppercase">Official Email</p>
-                  <a href="mailto:contact@swamithreads.com" className="text-base font-bold text-neutral-950 hover:underline">
-                    contact@swamithreads.com
+                  <a href="mailto:contact@teezoon.com" className="text-base font-bold text-neutral-950 hover:underline">
+                    contact@teezoon.com
                   </a>
                 </div>
               </div>

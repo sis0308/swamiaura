@@ -19,7 +19,7 @@ export const AboutView: React.FC = () => {
       <div className="bg-neutral-950 text-white py-20 px-4 sm:px-6 lg:px-8 border-b border-neutral-800">
         <div className="max-w-4xl mx-auto text-center space-y-4">
           <span className="text-xs font-bold uppercase tracking-widest text-neutral-400">
-            About SWAMI THREADS
+            About TEEZOON
           </span>
           <h1 className="text-3xl sm:text-5xl font-extrabold font-display tracking-tight text-white">
             Redefining Everyday Luxury In 240 GSM Cotton
@@ -65,7 +65,7 @@ export const AboutView: React.FC = () => {
               Our Core Standards
             </h3>
             <p className="text-xs text-neutral-500">
-              Every garment carrying the SWAMI THREADS label undergoes rigorous inspection.
+              Every garment carrying the TEEZOON label undergoes rigorous inspection.
             </p>
           </div>
 
@@ -118,7 +118,7 @@ export const AboutView: React.FC = () => {
             Experience The Feel of True Craftsmanship
           </h3>
           <p className="text-xs sm:text-sm text-neutral-400 max-w-xl mx-auto">
-            Order your first SWAMI THREADS tee today. If you don't fall in love with the fabric feel, enjoy hassle-free 7-day returns.
+            Order your first TEEZOON tee today. If you don't fall in love with the fabric feel, enjoy hassle-free 7-day returns.
           </p>
           <button
             onClick={() => navigateTo('/shop')}

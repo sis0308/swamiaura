@@ -235,7 +235,7 @@ export const AdminView: React.FC = () => {
 
     const result = verifyAdminOtp(otpInput);
     if (result.success) {
-      showToast('Admin Access Granted', 'Welcome to the SWAMI THREADS Executive Portal', 'success');
+      showToast('Admin Access Granted', 'Welcome to the TEEZOON Executive Portal', 'success');
     } else {
       setAuthError(result.message);
     }
@@ -649,7 +649,7 @@ export const AdminView: React.FC = () => {
     // Notify buyer via WhatsApp if option checked
     if (cancelNotifyWhatsApp) {
       const rawPhone = cancelModalOrder.customerPhone.replace(/\D/g, '');
-      const waMsg = `Hello ${cancelModalOrder.customerName},\nThis is SWAMI THREADS regarding your Order #${cancelModalOrder.orderNumber}.\n\nYour order has been CANCELLED.\nReason: ${finalReason}\nOrder Total: ₹${cancelModalOrder.grandTotal.toLocaleString('en-IN')}\n\nIf you have questions, require a refund or want to place a new order, feel free to reply directly to this message.\n\nTeam SWAMI THREADS`;
+      const waMsg = `Hello ${cancelModalOrder.customerName},\nThis is TEEZOON regarding your Order #${cancelModalOrder.orderNumber}.\n\nYour order has been CANCELLED.\nReason: ${finalReason}\nOrder Total: ₹${cancelModalOrder.grandTotal.toLocaleString('en-IN')}\n\nIf you have questions, require a refund or want to place a new order, feel free to reply directly to this message.\n\nTeam TEEZOON`;
       window.open(`https://wa.me/${rawPhone}?text=${encodeURIComponent(waMsg)}`, '_blank');
     }
 
@@ -718,14 +718,17 @@ export const AdminView: React.FC = () => {
         <div className="max-w-md w-full bg-white border border-gray-200 shadow-xl p-6 sm:p-8">
           {/* Header */}
           <div className="text-center space-y-2 pb-6 border-b border-gray-100">
-            <div className="w-12 h-12 bg-black text-white flex items-center justify-center mx-auto shadow-sm">
-              <Lock className="w-6 h-6" />
-            </div>
+            <img
+              src="/teezoon-logo.jpg"
+              alt="TEEZOON Logo"
+              className="w-14 h-14 object-contain rounded-md border border-neutral-200 mx-auto p-1 bg-white shadow-xs"
+              referrerPolicy="no-referrer"
+            />
             <p className="text-[10px] uppercase tracking-[0.25em] text-gray-400 font-bold font-mono">
               Restricted Area
             </p>
             <h1 className="text-2xl font-serif font-bold text-neutral-950 uppercase tracking-tight">
-              Admin Portal
+              TEEZOON Admin Portal
             </h1>
             <p className="text-xs text-neutral-500">
               ID, Password & Email OTP Two-Factor Authentication
@@ -881,13 +884,16 @@ export const AdminView: React.FC = () => {
       <div className="bg-[#111111] text-white border-b border-neutral-800 px-4 sm:px-8 py-3.5">
         <div className="max-w-7xl mx-auto flex flex-col sm:flex-row items-center justify-between gap-4">
           <div className="flex items-center gap-3">
-            <div className="w-7 h-7 bg-white text-black flex items-center justify-center font-serif font-bold text-sm">
-              S
-            </div>
+            <img
+              src="/teezoon-logo.jpg"
+              alt="TEEZOON Logo"
+              className="w-8 h-8 object-contain rounded-md bg-white p-0.5 border border-neutral-700"
+              referrerPolicy="no-referrer"
+            />
             <div>
               <div className="flex items-center gap-2">
                 <span className="font-serif font-bold tracking-wide uppercase text-sm">
-                  SWAMI THREADS Admin
+                  TEEZOON Admin
                 </span>
                 <span className="bg-emerald-500/20 text-emerald-400 text-[9px] font-mono px-1.5 py-0.2 border border-emerald-500/40 uppercase">
                   Protected Session
@@ -1225,7 +1231,7 @@ export const AdminView: React.FC = () => {
                       <div className="flex items-center gap-2 shrink-0 ml-3">
                         <a
                           href={`https://wa.me/${order.customerPhone.replace(/\D/g, '')}?text=${encodeURIComponent(
-                            `Hello ${order.customerName},\nThis is SWAMI THREADS regarding your Order #${order.orderNumber}.\nStatus: ${order.status.toUpperCase()}\nTotal: ₹${order.grandTotal}\nItems: ${order.items.map(i => `${i.productName} (${i.size}, ${i.color}) x${i.quantity}`).join(', ')}.\nTracking: Your order has been registered in our system and is being processed!`
+                            `Hello ${order.customerName},\nThis is TEEZOON regarding your Order #${order.orderNumber}.\nStatus: ${order.status.toUpperCase()}\nTotal: ₹${order.grandTotal}\nItems: ${order.items.map(i => `${i.productName} (${i.size}, ${i.color}) x${i.quantity}`).join(', ')}.\nTracking: Your order has been registered in our system and is being processed!`
                           )}`}
                           target="_blank"
                           rel="noreferrer"
@@ -2981,7 +2987,7 @@ export const AdminView: React.FC = () => {
                         </button>
                         <a
                           href={`https://wa.me/${selectedOrderForDetail.customerPhone.replace(/\D/g, '')}?text=${encodeURIComponent(
-                            `Hello ${selectedOrderForDetail.customerName},\nThis is SWAMI THREADS regarding your order #${selectedOrderForDetail.orderNumber}.\n\nYour order is CANCELLED.\nReason: ${selectedOrderForDetail.cancellationReason || 'Store Admin Cancellation'}\nTotal Amount: ₹${selectedOrderForDetail.grandTotal.toLocaleString('en-IN')}\n\nPlease reply if you need any assistance or have questions.\nTeam SWAMI THREADS`
+                            `Hello ${selectedOrderForDetail.customerName},\nThis is TEEZOON regarding your order #${selectedOrderForDetail.orderNumber}.\n\nYour order is CANCELLED.\nReason: ${selectedOrderForDetail.cancellationReason || 'Store Admin Cancellation'}\nTotal Amount: ₹${selectedOrderForDetail.grandTotal.toLocaleString('en-IN')}\n\nPlease reply if you need any assistance or have questions.\nTeam TEEZOON`
                           )}`}
                           target="_blank"
                           rel="noreferrer"
@@ -3017,7 +3023,7 @@ export const AdminView: React.FC = () => {
                 <div className="flex items-center gap-3 pt-2">
                   <a
                     href={`https://wa.me/${selectedOrderForDetail.customerPhone.replace(/\D/g, '')}?text=${encodeURIComponent(
-                      `Hello ${selectedOrderForDetail.customerName}, this is SWAMI THREADS regarding your order #${selectedOrderForDetail.orderNumber}. We have updated your status to ${selectedOrderForDetail.status.toUpperCase()}.`
+                      `Hello ${selectedOrderForDetail.customerName}, this is TEEZOON regarding your order #${selectedOrderForDetail.orderNumber}. We have updated your status to ${selectedOrderForDetail.status.toUpperCase()}.`
                     )}`}
                     target="_blank"
                     rel="noreferrer"

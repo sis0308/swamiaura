@@ -76,7 +76,7 @@ interface StoreContextType {
 
 const StoreContext = createContext<StoreContextType | undefined>(undefined);
 
-const ADMIN_DEFAULT_EMAIL = 'admin@swamithreads.com';
+const ADMIN_DEFAULT_EMAIL = 'admin@teezoon.com';
 const ADMIN_DEFAULT_PASS = 'admin123';
 
 export const StoreProvider: React.FC<{ children: ReactNode }> = ({ children }) => {
@@ -254,7 +254,7 @@ export const StoreProvider: React.FC<{ children: ReactNode }> = ({ children }) =
     const randomSuffix = Math.floor(100000 + Math.random() * 900000);
     const newOrder: CustomerOrder = {
       id: `ord-${Date.now()}`,
-      orderNumber: `SWAMI-${randomSuffix}`,
+      orderNumber: `TZ-${randomSuffix}`,
       createdAt: new Date().toISOString(),
       status: 'pending',
       ...orderData
@@ -361,8 +361,10 @@ export const StoreProvider: React.FC<{ children: ReactNode }> = ({ children }) =
     const isValidAdmin =
       (trimmedId === ADMIN_DEFAULT_EMAIL ||
         trimmedId === 'admin' ||
+        trimmedId === 'admin@teezoon.com' ||
         trimmedId === 'admin@swamithreads.com' ||
         trimmedId === 'admin@aurathreads.com' ||
+        trimmedId.endsWith('@teezoon.com') ||
         trimmedId.endsWith('@swamithreads.com') ||
         trimmedId.endsWith('@aurathreads.com')) &&
       (trimmedPass === ADMIN_DEFAULT_PASS ||

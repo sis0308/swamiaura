@@ -72,10 +72,10 @@ export const OffersSection: React.FC = () => {
                 <div className="flex items-center gap-3 bg-neutral-950 border border-neutral-700 px-4 py-3 rounded-xl">
                   <Tag className="w-4 h-4 text-amber-400" />
                   <span className="font-mono text-base font-extrabold text-white tracking-widest">
-                    SWAMI30
+                    TEEZOON30
                   </span>
                   <button
-                    onClick={() => handleCopyCode('SWAMI30')}
+                    onClick={() => handleCopyCode('TEEZOON30')}
                     className="flex items-center gap-1.5 bg-neutral-800 hover:bg-neutral-700 text-neutral-200 text-xs font-bold px-3 py-1.5 rounded-lg transition-colors ml-2"
                     title="Copy & Auto-Apply Code"
                   >

@@ -221,7 +221,7 @@ export const CartView: React.FC = () => {
                   <form onSubmit={handleApplyCoupon} className="flex gap-2">
                     <input
                       type="text"
-                      placeholder="Try 'SWAMI30'"
+                      placeholder="Try 'TEEZOON30'"
                       value={inputCoupon}
                       onChange={(e) => setInputCoupon(e.target.value.toUpperCase())}
                       className="flex-1 px-3 py-2 text-xs font-bold uppercase rounded-xl border border-neutral-300 focus:outline-none focus:border-neutral-900"
