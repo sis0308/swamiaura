@@ -134,23 +134,25 @@ export const Header: React.FC = () => {
             <div className="flex items-center">
               <button
                 onClick={() => handleNavClick('/')}
-                className="flex items-center gap-2.5 text-left group"
+                className="flex items-center gap-2.5 sm:gap-3 text-left group transition-opacity hover:opacity-85 py-1"
                 id="brand-logo-btn"
+                aria-label="Teezoon Home"
               >
+                {/* Left Side Logo Icon Emblem */}
                 <img
                   src="/teezoon-logo.jpg"
-                  alt="TEEZOON Logo"
-                  className="w-9 h-9 sm:w-10 sm:h-10 object-contain rounded-md border border-neutral-200 bg-white"
+                  alt="TEEZOON Emblem"
+                  className="w-9 h-9 sm:w-10 sm:h-10 md:w-11 md:h-11 object-contain rounded-md border border-neutral-200 bg-white shadow-xs shrink-0 group-hover:scale-105 transition-transform"
                   referrerPolicy="no-referrer"
                 />
-                <div className="flex flex-col">
-                  <span className="font-serif font-bold text-xl sm:text-2xl tracking-tight uppercase text-black leading-none">
-                    TEEZOON
-                  </span>
-                  <span className="text-[9px] uppercase tracking-[0.25em] text-gray-400 font-semibold mt-0.5">
-                    Editorial Apparel
-                  </span>
-                </div>
+                
+                {/* Brand Name & Typography */}
+                <img
+                  src="/teezoon-logo-black-transparent.png"
+                  alt="Teezoon - m group of company"
+                  className="h-8 sm:h-10 md:h-11 w-auto object-contain"
+                  referrerPolicy="no-referrer"
+                />
               </button>
             </div>
 
@@ -364,22 +366,20 @@ export const Header: React.FC = () => {
             >
               <div>
                 {/* Mobile Header Top */}
-                <div className="p-4 border-b border-neutral-200 flex items-center justify-between bg-neutral-50">
+                <div className="p-4 border-b border-neutral-200 flex items-center justify-between bg-white">
                   <div className="flex items-center gap-2.5">
                     <img
                       src="/teezoon-logo.jpg"
-                      alt="TEEZOON Logo"
-                      className="w-9 h-9 object-contain rounded-md border border-neutral-200 bg-white"
+                      alt="TEEZOON Emblem"
+                      className="w-8 h-8 object-contain rounded-md border border-neutral-200 bg-white shrink-0"
                       referrerPolicy="no-referrer"
                     />
-                    <div>
-                      <span className="font-display font-bold text-lg text-neutral-900 block leading-tight">
-                        TEEZOON
-                      </span>
-                      <span className="text-[10px] text-neutral-500 uppercase tracking-widest block">
-                        Premium Apparel
-                      </span>
-                    </div>
+                    <img
+                      src="/teezoon-logo-black-transparent.png"
+                      alt="Teezoon - m group of company"
+                      className="h-7 w-auto object-contain"
+                      referrerPolicy="no-referrer"
+                    />
                   </div>
                   <button
                     onClick={() => setMobileMenuOpen(false)}

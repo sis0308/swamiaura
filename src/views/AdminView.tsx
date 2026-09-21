@@ -717,11 +717,11 @@ export const AdminView: React.FC = () => {
       <div className="min-h-[85vh] bg-[#FAFAFA] flex items-center justify-center p-4 sm:p-6 lg:p-8">
         <div className="max-w-md w-full bg-white border border-gray-200 shadow-xl p-6 sm:p-8">
           {/* Header */}
-          <div className="text-center space-y-2 pb-6 border-b border-gray-100">
+          <div className="text-center space-y-3 pb-6 border-b border-gray-100 flex flex-col items-center">
             <img
-              src="/teezoon-logo.jpg"
-              alt="TEEZOON Logo"
-              className="w-14 h-14 object-contain rounded-md border border-neutral-200 mx-auto p-1 bg-white shadow-xs"
+              src="/teezoon-logo-black-transparent.png"
+              alt="Teezoon - m group of company"
+              className="h-14 w-auto object-contain mx-auto"
               referrerPolicy="no-referrer"
             />
             <p className="text-[10px] uppercase tracking-[0.25em] text-gray-400 font-bold font-mono">
@@ -885,9 +885,9 @@ export const AdminView: React.FC = () => {
         <div className="max-w-7xl mx-auto flex flex-col sm:flex-row items-center justify-between gap-4">
           <div className="flex items-center gap-3">
             <img
-              src="/teezoon-logo.jpg"
-              alt="TEEZOON Logo"
-              className="w-8 h-8 object-contain rounded-md bg-white p-0.5 border border-neutral-700"
+              src="/teezoon-logo-white-transparent.png"
+              alt="Teezoon Logo"
+              className="h-7 sm:h-8 w-auto object-contain"
               referrerPolicy="no-referrer"
             />
             <div>

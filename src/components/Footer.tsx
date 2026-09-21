@@ -85,16 +85,19 @@ export const Footer: React.FC = () => {
           {/* Brand & Newsletter */}
           <div className="lg:col-span-2 space-y-6 text-left">
             <div>
-              <div className="flex items-center gap-3">
+              <div className="flex items-center gap-3.5">
                 <img
                   src="/teezoon-logo.jpg"
-                  alt="TEEZOON Logo"
-                  className="w-10 h-10 object-contain rounded-md bg-white p-0.5"
+                  alt="TEEZOON Emblem"
+                  className="w-11 h-11 sm:w-12 sm:h-12 object-contain rounded-md bg-white p-0.5 shrink-0 shadow-sm"
                   referrerPolicy="no-referrer"
                 />
-                <span className="font-serif font-bold text-2xl tracking-tight uppercase text-white">
-                  TEEZOON
-                </span>
+                <img
+                  src="/teezoon-logo-white-transparent.png"
+                  alt="Teezoon - m group of company"
+                  className="h-10 sm:h-12 w-auto object-contain"
+                  referrerPolicy="no-referrer"
+                />
               </div>
               <p className="text-xs text-neutral-400 mt-3 leading-relaxed max-w-sm">
                 Architectural silhouettes meets premium 240 GSM combed cotton. Redefining modern casualwear with thoughtful cuts, rich saturated dyes, and timeless fit longevity.
