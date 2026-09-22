@@ -155,7 +155,7 @@ ${discountAmount > 0 ? `• Coupon Discount: -₹${discountAmount}\n` : ''}• D
 
 📦 *Status:* Confirmed & Preparing for Dispatch
 🚚 Expected Delivery: 2-3 Business Days
-Support & Help: +91 98765 43210 (TEEZOON Bengaluru Studio)`;
+Support & Help: +91 77560 61273 (TEEZOON Bengaluru Studio)`;
 
     const directBuyerWaUrl = `https://wa.me/${buyerPhoneWithCountryCode}?text=${encodeURIComponent(buyerMessage)}`;
     setBuyerWhatsAppUrl(directBuyerWaUrl);
@@ -183,7 +183,7 @@ Support & Help: +91 98765 43210 (TEEZOON Bengaluru Studio)`;
 
     const text = `*NEW ORDER: ${placedOrderId}*\n\n*Customer:* ${placedOrderSummary.customer.name}\n*Phone:* ${placedOrderSummary.customer.phone}\n*Address:* ${placedOrderSummary.customer.address}, ${placedOrderSummary.customer.city}, ${placedOrderSummary.customer.state} - ${placedOrderSummary.customer.pincode}\n*Payment Method:* ${placedOrderSummary.customer.paymentMethod.toUpperCase()}\n\n*Items Ordered:*\n${itemList}\n\n*Grand Total:* ₹${placedOrderSummary.total}\n\nPlease confirm delivery date!`;
 
-    window.open(`https://wa.me/919876543210?text=${encodeURIComponent(text)}`, '_blank');
+    window.open(`https://wa.me/917756061273?text=${encodeURIComponent(text)}`, '_blank');
   };
 
   // If Order is Placed: Show Success View
@@ -267,7 +267,7 @@ Support & Help: +91 98765 43210 (TEEZOON Bengaluru Studio)`;
               id="btn-store-support-whatsapp"
             >
               <MessageCircle className="w-4 h-4 text-emerald-600" />
-              <span>Contact Store WhatsApp (+91 98765 43210)</span>
+              <span>Contact Store WhatsApp (+91 77560 61273)</span>
             </button>
 
             <button
@@ -527,7 +527,7 @@ Support & Help: +91 98765 43210 (TEEZOON Bengaluru Studio)`;
                           Direct WhatsApp Order Placement
                         </p>
                         <p className="text-[11px] text-neutral-500">
-                          Place order directly with human team on +91 98765 43210
+                          Place order directly with human team on +91 77560 61273
                         </p>
                       </div>
                     </div>

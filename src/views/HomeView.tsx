@@ -232,8 +232,8 @@ export const HomeView: React.FC = () => {
                   </div>
                   <div>
                     <p className="text-xs text-neutral-500 font-semibold uppercase">Direct Phone Hotline</p>
-                    <a href="tel:+919876543210" className="text-base font-extrabold text-neutral-950 hover:underline">
-                      +91 98765 43210
+                    <a href="tel:+917756061273" className="text-base font-extrabold text-neutral-950 hover:underline">
+                      +91 77560 61273
                     </a>
                   </div>
                 </div>
@@ -244,8 +244,8 @@ export const HomeView: React.FC = () => {
                   </div>
                   <div>
                     <p className="text-xs text-neutral-500 font-semibold uppercase">WhatsApp Business Order</p>
-                    <a href="https://wa.me/919876543210" target="_blank" rel="noreferrer" className="text-base font-extrabold text-emerald-700 hover:underline">
-                      +91 98765 43210
+                    <a href="https://wa.me/917756061273" target="_blank" rel="noreferrer" className="text-base font-extrabold text-emerald-700 hover:underline">
+                      +91 77560 61273
                     </a>
                   </div>
                 </div>
@@ -256,8 +256,8 @@ export const HomeView: React.FC = () => {
                   </div>
                   <div>
                     <p className="text-xs text-neutral-500 font-semibold uppercase">Email Inquiries</p>
-                    <a href="mailto:contact@teezoon.com" className="text-base font-bold text-neutral-950 hover:underline">
-                      contact@teezoon.com
+                    <a href="mailto:management.teezoon@gmail.com" className="text-base font-bold text-neutral-950 hover:underline">
+                      management.teezoon@gmail.com
                     </a>
                   </div>
                 </div>
@@ -278,7 +278,7 @@ export const HomeView: React.FC = () => {
               {/* Direct Mobile Quick Buttons */}
               <div className="pt-4 border-t border-neutral-100 grid grid-cols-2 gap-3">
                 <a
-                  href="tel:+919876543210"
+                  href="tel:+917756061273"
                   className="bg-neutral-900 hover:bg-black text-white text-center py-3 px-4 rounded-xl text-xs font-bold tracking-wide transition-colors flex items-center justify-center gap-2"
                 >
                   <Phone className="w-4 h-4" />
@@ -286,7 +286,7 @@ export const HomeView: React.FC = () => {
                 </a>
 
                 <a
-                  href="https://wa.me/919876543210"
+                  href="https://wa.me/917756061273"
                   target="_blank"
                   rel="noreferrer"
                   className="bg-emerald-600 hover:bg-emerald-700 text-white text-center py-3 px-4 rounded-xl text-xs font-bold tracking-wide transition-colors flex items-center justify-center gap-2"

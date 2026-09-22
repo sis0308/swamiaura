@@ -68,7 +68,7 @@ export const ServicesView: React.FC = () => {
 
   const handleWhatsAppBulk = () => {
     const text = `*BULK / CUSTOM ORDER INQUIRY*\n\n*Name:* ${bulkConfig.contactName || 'Valued Customer'}\n*Company/College:* ${bulkConfig.companyName || 'N/A'}\n*Phone:* ${bulkConfig.contactPhone || 'N/A'}\n*Quantity:* ${bulkConfig.quantity} Units\n*Fabric:* ${bulkConfig.fabricType}\n*Customization:* ${bulkConfig.customization}\n*Est. Total:* ₹${estimatedTotal}\n\nPlease share sample catalog and turnaround timeline!`;
-    window.open(`https://wa.me/919876543210?text=${encodeURIComponent(text)}`, '_blank');
+    window.open(`https://wa.me/917756061273?text=${encodeURIComponent(text)}`, '_blank');
   };
 
   return (
@@ -306,7 +306,7 @@ export const ServicesView: React.FC = () => {
                 className="w-full bg-[#25D366] hover:bg-[#20bd5a] text-white py-3.5 px-4 rounded-xl text-xs font-bold uppercase tracking-wider transition-colors flex items-center justify-center gap-2"
               >
                 <MessageCircle className="w-4 h-4 fill-current" />
-                <span>Discuss On WhatsApp (+91 98765 43210)</span>
+                <span>Discuss On WhatsApp (+91 77560 61273)</span>
               </button>
             </div>
 

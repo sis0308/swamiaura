@@ -165,7 +165,7 @@ export const Footer: React.FC = () => {
                 <Youtube className="w-3.5 h-3.5" />
               </a>
               <a
-                href="https://wa.me/919876543210"
+                href="https://wa.me/917756061273"
                 target="_blank"
                 rel="noreferrer"
                 className="w-8 h-8 bg-neutral-900 hover:bg-emerald-600 hover:text-white transition-colors flex items-center justify-center text-neutral-300 border border-neutral-800"
@@ -300,8 +300,8 @@ export const Footer: React.FC = () => {
                 <Phone className="w-3.5 h-3.5 text-neutral-500 mt-0.5 shrink-0" />
                 <div>
                   <p className="text-neutral-500 text-[9px] uppercase font-bold tracking-wider">Phone</p>
-                  <a href="tel:+919876543210" className="text-white font-medium hover:underline">
-                    +91 98765 43210
+                  <a href="tel:+917756061273" className="text-white font-medium hover:underline">
+                    +91 77560 61273
                   </a>
                 </div>
               </li>
@@ -309,8 +309,8 @@ export const Footer: React.FC = () => {
                 <MessageCircle className="w-3.5 h-3.5 text-neutral-500 mt-0.5 shrink-0" />
                 <div>
                   <p className="text-neutral-500 text-[9px] uppercase font-bold tracking-wider">WhatsApp</p>
-                  <a href="https://wa.me/919876543210" target="_blank" rel="noreferrer" className="text-white font-medium hover:underline">
-                    +91 98765 43210
+                  <a href="https://wa.me/917756061273" target="_blank" rel="noreferrer" className="text-white font-medium hover:underline">
+                    +91 77560 61273
                   </a>
                 </div>
               </li>
@@ -318,8 +318,8 @@ export const Footer: React.FC = () => {
                 <Mail className="w-3.5 h-3.5 text-neutral-500 mt-0.5 shrink-0" />
                 <div>
                   <p className="text-neutral-500 text-[9px] uppercase font-bold tracking-wider">Email</p>
-                  <a href="mailto:contact@teezoon.com" className="text-white hover:underline">
-                    contact@teezoon.com
+                  <a href="mailto:management.teezoon@gmail.com" className="text-white hover:underline">
+                    management.teezoon@gmail.com
                   </a>
                 </div>
               </li>

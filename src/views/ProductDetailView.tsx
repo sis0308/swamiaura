@@ -73,7 +73,7 @@ export const ProductDetailView: React.FC<ProductDetailViewProps> = ({ productId 
 
   const handleWhatsAppInquiry = () => {
     const message = `Hi TEEZOON! I would like to buy/inquire about the *${product.name}* in size *${selectedSize}*, color *${selectedColor}* (₹${product.price}). Product Link: ${window.location.href}`;
-    window.open(`https://wa.me/919876543210?text=${encodeURIComponent(message)}`, '_blank');
+    window.open(`https://wa.me/917756061273?text=${encodeURIComponent(message)}`, '_blank');
   };
 
   const handlePincodeCheck = (e: React.FormEvent) => {
@@ -362,7 +362,7 @@ export const ProductDetailView: React.FC<ProductDetailViewProps> = ({ productId 
                     id="pdp-whatsapp-order-btn"
                   >
                     <MessageCircle className="w-4 h-4 fill-current" />
-                    <span>ORDER / INQUIRE ON WHATSAPP (+91 98765 43210)</span>
+                    <span>ORDER / INQUIRE ON WHATSAPP (+91 77560 61273)</span>
                   </button>
                 </div>
 

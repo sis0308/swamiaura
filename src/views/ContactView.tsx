@@ -23,7 +23,7 @@ const FAQS = [
   },
   {
     q: 'Can I exchange my size if it doesn’t fit properly?',
-    a: 'Yes! We offer a 7-day hassle-free doorstep exchange policy. Simply message our WhatsApp support (+91 98765 43210) with your order ID and desired size.'
+    a: 'Yes! We offer a 7-day hassle-free doorstep exchange policy. Simply message our WhatsApp support (+91 77560 61273) with your order ID and desired size.'
   },
   {
     q: 'Do you offer Cash on Delivery (COD)?',
@@ -97,8 +97,8 @@ export const ContactView: React.FC = () => {
                 </div>
                 <div>
                   <p className="text-xs text-neutral-500 font-semibold uppercase">Telephone Hotline</p>
-                  <a href="tel:+919876543210" className="text-base font-extrabold text-neutral-950 hover:underline">
-                    +91 98765 43210
+                  <a href="tel:+917756061273" className="text-base font-extrabold text-neutral-950 hover:underline">
+                    +91 77560 61273
                   </a>
                   <p className="text-[11px] text-neutral-400 mt-0.5">Mon - Sat: 9 AM - 9 PM IST</p>
                 </div>
@@ -110,8 +110,8 @@ export const ContactView: React.FC = () => {
                 </div>
                 <div>
                   <p className="text-xs text-neutral-500 font-semibold uppercase">WhatsApp Business</p>
-                  <a href="https://wa.me/919876543210" target="_blank" rel="noreferrer" className="text-base font-extrabold text-emerald-700 hover:underline">
-                    +91 98765 43210
+                  <a href="https://wa.me/917756061273" target="_blank" rel="noreferrer" className="text-base font-extrabold text-emerald-700 hover:underline">
+                    +91 77560 61273
                   </a>
                   <p className="text-[11px] text-neutral-400 mt-0.5">Instant order booking & status</p>
                 </div>
@@ -123,8 +123,8 @@ export const ContactView: React.FC = () => {
                 </div>
                 <div>
                   <p className="text-xs text-neutral-500 font-semibold uppercase">Official Email</p>
-                  <a href="mailto:contact@teezoon.com" className="text-base font-bold text-neutral-950 hover:underline">
-                    contact@teezoon.com
+                  <a href="mailto:management.teezoon@gmail.com" className="text-base font-bold text-neutral-950 hover:underline">
+                    management.teezoon@gmail.com
                   </a>
                 </div>
               </div>
@@ -158,7 +158,7 @@ export const ContactView: React.FC = () => {
             {/* Direct Mobile Action Buttons */}
             <div className="pt-4 border-t border-neutral-100 grid grid-cols-2 gap-3">
               <a
-                href="tel:+919876543210"
+                href="tel:+917756061273"
                 className="bg-neutral-900 hover:bg-black text-white text-center py-3.5 px-4 rounded-xl text-xs font-bold tracking-wide transition-colors flex items-center justify-center gap-2"
               >
                 <Phone className="w-4 h-4" />
@@ -166,7 +166,7 @@ export const ContactView: React.FC = () => {
               </a>
 
               <a
-                href="https://wa.me/919876543210"
+                href="https://wa.me/917756061273"
                 target="_blank"
                 rel="noreferrer"
                 className="bg-emerald-600 hover:bg-emerald-700 text-white text-center py-3.5 px-4 rounded-xl text-xs font-bold tracking-wide transition-colors flex items-center justify-center gap-2"

@@ -76,7 +76,7 @@ interface StoreContextType {
 
 const StoreContext = createContext<StoreContextType | undefined>(undefined);
 
-const ADMIN_DEFAULT_EMAIL = 'admin@teezoon.com';
+const ADMIN_DEFAULT_EMAIL = 'management.teezoon@gmail.com';
 const ADMIN_DEFAULT_PASS = 'admin123';
 
 export const StoreProvider: React.FC<{ children: ReactNode }> = ({ children }) => {
@@ -361,6 +361,7 @@ export const StoreProvider: React.FC<{ children: ReactNode }> = ({ children }) =
     const isValidAdmin =
       (trimmedId === ADMIN_DEFAULT_EMAIL ||
         trimmedId === 'admin' ||
+        trimmedId === 'management.teezoon@gmail.com' ||
         trimmedId === 'admin@teezoon.com' ||
         trimmedId === 'admin@swamithreads.com' ||
         trimmedId === 'admin@aurathreads.com' ||

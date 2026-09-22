@@ -78,12 +78,12 @@ export const Header: React.FC = () => {
 
           <div className="hidden md:flex items-center gap-6 text-neutral-400 text-[10px] font-mono tracking-wider">
             <a
-              href="tel:+919876543210"
+              href="tel:+917756061273"
               className="flex items-center gap-1.5 hover:text-white transition-colors"
               id="header-top-call"
             >
               <Phone className="w-3 h-3 text-neutral-400" />
-              <span>CALL: +91 98765 43210</span>
+              <span>CALL: +91 77560 61273</span>
             </a>
             <span className="text-neutral-700">|</span>
             <button
@@ -396,11 +396,11 @@ export const Header: React.FC = () => {
                     Direct Customer Support
                   </p>
                   <a
-                    href="tel:+919876543210"
+                    href="tel:+917756061273"
                     className="flex items-center gap-2 text-base font-bold text-emerald-400 hover:underline"
                   >
                     <Phone className="w-4 h-4" />
-                    <span>+91 98765 43210</span>
+                    <span>+91 77560 61273</span>
                   </a>
                 </div>
 
@@ -450,7 +450,7 @@ export const Header: React.FC = () => {
               {/* Mobile Drawer Bottom Actions */}
               <div className="p-4 border-t border-neutral-200 bg-neutral-50 space-y-2">
                 <a
-                  href="https://wa.me/919876543210?text=Hi%20TEEZOON!%20I%20would%20like%20to%20order%20T-Shirts."
+                  href="https://wa.me/917756061273?text=Hi%20TEEZOON!%20I%20would%20like%20to%20order%20T-Shirts."
                   target="_blank"
                   rel="noopener noreferrer"
                   className="w-full flex items-center justify-center gap-2 bg-emerald-600 hover:bg-emerald-700 text-white py-3 text-sm font-semibold transition-colors"
