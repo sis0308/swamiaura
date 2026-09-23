@@ -89,8 +89,8 @@ export const CheckoutView: React.FC = () => {
       customerEmail: formData.email || `${formData.name.toLowerCase().replace(/\s+/g, '.')}@gmail.com`,
       shippingAddress: {
         address: formData.address,
-        city: formData.city || 'Bengaluru',
-        state: formData.state || 'Karnataka',
+        city: formData.city || 'Alandi Devachi',
+        state: formData.state || 'Maharashtra',
         pincode: formData.pincode
       },
       paymentMethod: (formData.paymentMethod as 'cod' | 'upi' | 'whatsapp') || 'cod',
@@ -155,7 +155,7 @@ ${discountAmount > 0 ? `• Coupon Discount: -₹${discountAmount}\n` : ''}• D
 
 📦 *Status:* Confirmed & Preparing for Dispatch
 🚚 Expected Delivery: 2-3 Business Days
-Support & Help: +91 77560 61273 (TEEZOON Bengaluru Studio)`;
+Support & Help: +91 77560 61273 (TEEZOON Studio)`;
 
     const directBuyerWaUrl = `https://wa.me/${buyerPhoneWithCountryCode}?text=${encodeURIComponent(buyerMessage)}`;
     setBuyerWhatsAppUrl(directBuyerWaUrl);
@@ -385,7 +385,7 @@ Support & Help: +91 77560 61273 (TEEZOON Bengaluru Studio)`;
                       type="text"
                       name="city"
                       required
-                      placeholder="Bengaluru"
+                      placeholder="Alandi Devachi / Pune"
                       value={formData.city}
                       onChange={handleFormChange}
                       className="w-full px-4 py-2.5 rounded-xl border border-neutral-300 text-xs font-medium focus:outline-none focus:border-neutral-900 bg-neutral-50/50"
@@ -423,7 +423,7 @@ Support & Help: +91 77560 61273 (TEEZOON Bengaluru Studio)`;
                       name="pincode"
                       maxLength={6}
                       required
-                      placeholder="560038"
+                      placeholder="412105"
                       value={formData.pincode}
                       onChange={handleFormChange}
                       className="w-full px-4 py-2.5 rounded-xl border border-neutral-300 text-xs font-medium focus:outline-none focus:border-neutral-900 bg-neutral-50/50"

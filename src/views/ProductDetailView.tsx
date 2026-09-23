@@ -375,7 +375,7 @@ export const ProductDetailView: React.FC<ProductDetailViewProps> = ({ productId 
                   <form onSubmit={handlePincodeCheck} className="flex gap-2">
                     <input
                       type="text"
-                      placeholder="Enter 6-digit PIN code (e.g. 560038)"
+                      placeholder="Enter 6-digit PIN code (e.g. 412105)"
                       maxLength={6}
                       value={pincode}
                       onChange={(e) => setPincode(e.target.value)}

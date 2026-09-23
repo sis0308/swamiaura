@@ -269,7 +269,7 @@ export const HomeView: React.FC = () => {
                   <div>
                     <p className="text-xs text-neutral-500 font-semibold uppercase">Design Studio & HQ</p>
                     <p className="text-sm font-medium text-neutral-800 mt-0.5">
-                      42 Fashion Boulevard, 100ft Road, Indiranagar, Bengaluru, Karnataka 560038
+                      Muli Nagar, Behind the Karva Dhrmshla, Maulinagar, Alandi Devachi, PIN: 412105
                     </p>
                   </div>
                 </div>

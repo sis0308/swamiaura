@@ -328,7 +328,7 @@ export const Footer: React.FC = () => {
                 <div className="font-sans text-xs">
                   <p className="text-neutral-500 text-[9px] uppercase font-mono font-bold tracking-wider">Studio</p>
                   <p className="text-neutral-300">
-                    42 Fashion Boulevard, Indiranagar, Bengaluru 560038
+                    Muli Nagar, Behind the Karva Dhrmshla, Maulinagar, Alandi Devachi, PIN: 412105
                   </p>
                 </div>
               </li>
