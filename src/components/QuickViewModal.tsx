@@ -24,15 +24,58 @@ export const QuickViewModal: React.FC = () => {
   useEffect(() => {
     if (product) {
       setSelectedSize(product.sizes[0] || 'M');
-      setSelectedColor(product.colors[0]?.name || 'Standard');
-      setSelectedImageIndex(0);
+      const defaultColor = product.colors[0];
+      setSelectedColor(defaultColor?.name || 'Standard');
       setQuantity(1);
+
+      if (defaultColor?.image && product.images.includes(defaultColor.image)) {
+        setSelectedImageIndex(product.images.indexOf(defaultColor.image));
+      } else if (defaultColor?.imageIndex !== undefined && product.images[defaultColor.imageIndex]) {
+        setSelectedImageIndex(defaultColor.imageIndex);
+      } else {
+        setSelectedImageIndex(0);
+      }
     }
   }, [product]);
 
   if (!product) return null;
 
   const wishlisted = isWishlisted(product.id);
+
+  const handleColorSelect = (colorName: string, colorIdx: number) => {
+    setSelectedColor(colorName);
+    const colorObj = product.colors.find((c) => c.name === colorName);
+    if (!colorObj) return;
+
+    if (colorObj.image) {
+      const foundIdx = product.images.indexOf(colorObj.image);
+      if (foundIdx !== -1) {
+        setSelectedImageIndex(foundIdx);
+        return;
+      }
+    }
+
+    if (colorObj.imageIndex !== undefined && product.images[colorObj.imageIndex]) {
+      setSelectedImageIndex(colorObj.imageIndex);
+      return;
+    }
+
+    if (colorIdx < product.images.length) {
+      setSelectedImageIndex(colorIdx);
+    }
+  };
+
+  const handleThumbnailClick = (imgIdx: number) => {
+    setSelectedImageIndex(imgIdx);
+    const targetUrl = product.images[imgIdx];
+    const matchingColor = product.colors.find((c, cIdx) => 
+      (c.image && c.image === targetUrl) ||
+      (c.imageIndex !== undefined ? c.imageIndex === imgIdx : cIdx === imgIdx)
+    );
+    if (matchingColor) {
+      setSelectedColor(matchingColor.name);
+    }
+  };
 
   const handleAddToCart = () => {
     addToCart(product, selectedSize, selectedColor, quantity);
@@ -94,7 +137,7 @@ export const QuickViewModal: React.FC = () => {
                 {product.images.map((img, idx) => (
                   <button
                     key={idx}
-                    onClick={() => setSelectedImageIndex(idx)}
+                    onClick={() => handleThumbnailClick(idx)}
                     className={`aspect-square rounded-lg overflow-hidden border-2 transition-all ${
                       selectedImageIndex === idx
                         ? 'border-neutral-900 ring-2 ring-neutral-900/20'
@@ -158,27 +201,35 @@ export const QuickViewModal: React.FC = () => {
                 {/* Color Selection */}
                 <div className="space-y-2">
                   <div className="flex items-center justify-between text-xs">
-                    <span className="font-bold text-neutral-800">
-                      Color: <span className="text-neutral-600 font-normal">{selectedColor}</span>
+                    <span className="font-bold text-neutral-800 flex items-center gap-1.5">
+                      <span>Color:</span>
+                      <span className="text-neutral-900 font-extrabold bg-neutral-100 px-2 py-0.5 rounded border border-neutral-200">
+                        {selectedColor}
+                      </span>
+                    </span>
+                    <span className="text-[10px] text-emerald-700 font-mono font-medium">
+                      ✓ Changes Photo
                     </span>
                   </div>
-                  <div className="flex items-center gap-2">
-                    {product.colors.map((c) => (
+                  <div className="flex items-center gap-2 flex-wrap">
+                    {product.colors.map((c, cIdx) => (
                       <button
                         key={c.name}
-                        onClick={() => setSelectedColor(c.name)}
-                        className={`w-7 h-7 rounded-full border flex items-center justify-center transition-all ${
+                        onClick={() => handleColorSelect(c.name, cIdx)}
+                        className={`w-7 h-7 rounded-full border-2 flex items-center justify-center transition-all ${
                           selectedColor === c.name
-                            ? 'ring-2 ring-neutral-950 ring-offset-2 scale-110'
-                            : 'border-neutral-300 hover:scale-105'
+                            ? 'ring-2 ring-neutral-950 ring-offset-2 scale-110 border-white shadow-xs'
+                            : 'border-neutral-300 hover:scale-105 opacity-80 hover:opacity-100'
                         }`}
                         style={{ backgroundColor: c.hex }}
-                        title={c.name}
+                        title={`Select ${c.name}`}
                       >
                         {selectedColor === c.name && (
                           <Check
                             className={`w-3.5 h-3.5 ${
-                              c.name.includes('White') ? 'text-black' : 'text-white'
+                              c.name.includes('White') || c.hex.toLowerCase() === '#ffffff' || c.hex.toLowerCase() === '#f3f4f6'
+                                ? 'text-black'
+                                : 'text-white'
                             }`}
                           />
                         )}

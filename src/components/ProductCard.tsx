@@ -24,6 +24,30 @@ export const ProductCard: React.FC<ProductCardProps> = ({ product }) => {
 
   const wishlisted = isWishlisted(product.id);
 
+  const handleColorSelect = (e: React.MouseEvent, colorName: string, colorIdx: number) => {
+    e.stopPropagation();
+    setSelectedColor(colorName);
+    const colorObj = product.colors.find((c) => c.name === colorName);
+    if (!colorObj) return;
+
+    if (colorObj.image) {
+      const idx = product.images.indexOf(colorObj.image);
+      if (idx !== -1) {
+        setCurrentImageIndex(idx);
+        return;
+      }
+    }
+
+    if (colorObj.imageIndex !== undefined && product.images[colorObj.imageIndex]) {
+      setCurrentImageIndex(colorObj.imageIndex);
+      return;
+    }
+
+    if (colorIdx < product.images.length) {
+      setCurrentImageIndex(colorIdx);
+    }
+  };
+
   const handleAddToCart = (e: React.MouseEvent) => {
     e.stopPropagation();
     addToCart(product, selectedSize, selectedColor, 1);
@@ -55,7 +79,6 @@ export const ProductCard: React.FC<ProductCardProps> = ({ product }) => {
       onMouseEnter={() => setIsHovered(true)}
       onMouseLeave={() => {
         setIsHovered(false);
-        setCurrentImageIndex(0);
       }}
       id={`product-card-${product.id}`}
     >
@@ -64,7 +87,7 @@ export const ProductCard: React.FC<ProductCardProps> = ({ product }) => {
         {/* Main Product Image */}
         <img
           src={
-            isHovered && product.images[1]
+            isHovered && product.images[1] && currentImageIndex === 0
               ? product.images[1]
               : product.images[currentImageIndex] || product.images[0]
           }
@@ -165,16 +188,16 @@ export const ProductCard: React.FC<ProductCardProps> = ({ product }) => {
 
           {/* Color Variations Circles */}
           <div className="mt-2.5 flex items-center justify-between" onClick={(e) => e.stopPropagation()}>
-            <div className="flex items-center space-x-1">
-              {product.colors.map((c) => (
+            <div className="flex items-center space-x-1.5">
+              {product.colors.map((c, cIdx) => (
                 <button
                   key={c.name}
-                  onClick={() => setSelectedColor(c.name)}
-                  title={c.name}
-                  className={`w-3 h-3 rounded-full border transition-all ${
+                  onClick={(e) => handleColorSelect(e, c.name, cIdx)}
+                  title={`${c.name} (Click to see this color)`}
+                  className={`w-3.5 h-3.5 rounded-full border transition-all ${
                     selectedColor === c.name
-                      ? 'ring-1 ring-black ring-offset-1 scale-110 border-transparent'
-                      : 'border-gray-300'
+                      ? 'ring-2 ring-black ring-offset-1 scale-110 border-white'
+                      : 'border-gray-300 hover:scale-105 opacity-80 hover:opacity-100'
                   }`}
                   style={{ backgroundColor: c.hex }}
                   aria-label={`Select ${c.name}`}

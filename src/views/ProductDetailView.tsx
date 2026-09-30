@@ -53,14 +53,64 @@ export const ProductDetailView: React.FC<ProductDetailViewProps> = ({ productId 
 
   useEffect(() => {
     window.scrollTo({ top: 0, behavior: 'smooth' });
-    setSelectedImageIndex(0);
+    const defaultColor = product.colors[0];
+    const initialColorName = defaultColor?.name || 'Standard';
+    setSelectedColor(initialColorName);
     setSelectedSize(product.sizes[0] || 'M');
-    setSelectedColor(product.colors[0]?.name || 'Standard');
     setQuantity(1);
     setPincodeChecked(null);
-  }, [productId]);
+
+    // Initial image index matching the default color
+    if (defaultColor?.image && product.images.includes(defaultColor.image)) {
+      setSelectedImageIndex(product.images.indexOf(defaultColor.image));
+    } else if (defaultColor?.imageIndex !== undefined && product.images[defaultColor.imageIndex]) {
+      setSelectedImageIndex(defaultColor.imageIndex);
+    } else {
+      setSelectedImageIndex(0);
+    }
+  }, [productId, product]);
 
   const wishlisted = isWishlisted(product.id);
+
+  // Color-Wise Photo Switching Handler
+  const handleColorSelect = (colorName: string, colorIdx: number) => {
+    setSelectedColor(colorName);
+    const colorObj = product.colors.find((c) => c.name === colorName);
+    if (!colorObj) return;
+
+    // 1. Direct color image URL
+    if (colorObj.image) {
+      const foundIdx = product.images.indexOf(colorObj.image);
+      if (foundIdx !== -1) {
+        setSelectedImageIndex(foundIdx);
+        return;
+      }
+    }
+
+    // 2. Explicit imageIndex assigned in product/admin
+    if (colorObj.imageIndex !== undefined && product.images[colorObj.imageIndex]) {
+      setSelectedImageIndex(colorObj.imageIndex);
+      return;
+    }
+
+    // 3. Fallback: match color index to product images index if available
+    if (colorIdx < product.images.length) {
+      setSelectedImageIndex(colorIdx);
+    }
+  };
+
+  // Thumbnail Click Handler (also syncs active color if linked)
+  const handleThumbnailClick = (imgIdx: number) => {
+    setSelectedImageIndex(imgIdx);
+    const targetUrl = product.images[imgIdx];
+    const matchingColor = product.colors.find((c, cIdx) => 
+      (c.image && c.image === targetUrl) ||
+      (c.imageIndex !== undefined ? c.imageIndex === imgIdx : cIdx === imgIdx)
+    );
+    if (matchingColor) {
+      setSelectedColor(matchingColor.name);
+    }
+  };
 
   const handleAddToCart = () => {
     addToCart(product, selectedSize, selectedColor, quantity);
@@ -137,7 +187,7 @@ export const ProductDetailView: React.FC<ProductDetailViewProps> = ({ productId 
                 {product.images.map((img, idx) => (
                   <button
                     key={idx}
-                    onClick={() => setSelectedImageIndex(idx)}
+                    onClick={() => handleThumbnailClick(idx)}
                     className={`w-16 h-20 md:w-20 md:h-24 rounded-xl overflow-hidden border-2 transition-all shrink-0 ${
                       selectedImageIndex === idx
                         ? 'border-neutral-950 ring-2 ring-neutral-950/20'
@@ -238,28 +288,36 @@ export const ProductDetailView: React.FC<ProductDetailViewProps> = ({ productId 
                 {/* Color Selector */}
                 <div className="space-y-2.5">
                   <div className="flex items-center justify-between text-xs">
-                    <span className="font-bold text-neutral-900">
-                      Select Color:{' '}
-                      <span className="text-neutral-600 font-normal">{selectedColor}</span>
+                    <span className="font-bold text-neutral-900 flex items-center gap-1.5">
+                      <span>Select Color:</span>
+                      <span className="text-neutral-950 font-extrabold bg-neutral-100 border border-neutral-200 px-2 py-0.5 rounded shadow-2xs">
+                        {selectedColor}
+                      </span>
+                    </span>
+                    <span className="text-[11px] text-emerald-700 font-mono font-semibold flex items-center gap-1">
+                      <Sparkles className="w-3 h-3 text-emerald-600" />
+                      <span>Color Photo Active</span>
                     </span>
                   </div>
                   <div className="flex items-center gap-2.5 flex-wrap">
-                    {product.colors.map((c) => (
+                    {product.colors.map((c, cIdx) => (
                       <button
                         key={c.name}
-                        onClick={() => setSelectedColor(c.name)}
-                        className={`w-8 h-8 rounded-full border flex items-center justify-center transition-all ${
+                        onClick={() => handleColorSelect(c.name, cIdx)}
+                        className={`w-9 h-9 rounded-full border-2 flex items-center justify-center transition-all ${
                           selectedColor === c.name
-                            ? 'ring-2 ring-neutral-950 ring-offset-2 scale-110'
-                            : 'border-neutral-300 hover:scale-105'
+                            ? 'ring-2 ring-neutral-950 ring-offset-2 scale-110 border-white shadow-md'
+                            : 'border-neutral-300 hover:scale-105 opacity-80 hover:opacity-100'
                         }`}
                         style={{ backgroundColor: c.hex }}
-                        title={c.name}
+                        title={`Select ${c.name} - Changes photo view`}
                       >
                         {selectedColor === c.name && (
                           <Check
                             className={`w-4 h-4 ${
-                              c.name.includes('White') ? 'text-black' : 'text-white'
+                              c.name.includes('White') || c.hex.toLowerCase() === '#ffffff' || c.hex.toLowerCase() === '#f3f4f6'
+                                ? 'text-black'
+                                : 'text-white'
                             }`}
                           />
                         )}

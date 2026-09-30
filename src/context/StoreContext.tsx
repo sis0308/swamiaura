@@ -79,6 +79,16 @@ const StoreContext = createContext<StoreContextType | undefined>(undefined);
 const ADMIN_DEFAULT_EMAIL = 'management.teezoon@gmail.com';
 const ADMIN_DEFAULT_PASS = 'admin123';
 
+const normalizeProducts = (prods: Product[]): Product[] => {
+  return prods.map((p) => ({
+    ...p,
+    colors: (p.colors || []).map((c, idx) => ({
+      ...c,
+      imageIndex: c.imageIndex !== undefined ? c.imageIndex : idx < (p.images?.length || 1) ? idx : 0
+    }))
+  }));
+};
+
 export const StoreProvider: React.FC<{ children: ReactNode }> = ({ children }) => {
   const [isFirebaseConnected, setIsFirebaseConnected] = useState<boolean>(true);
 
@@ -89,13 +99,13 @@ export const StoreProvider: React.FC<{ children: ReactNode }> = ({ children }) =
       if (saved) {
         const parsed = JSON.parse(saved);
         if (Array.isArray(parsed) && parsed.length > 0) {
-          return parsed;
+          return normalizeProducts(parsed);
         }
       }
     } catch (e) {
       console.error('Failed to load products from cache:', e);
     }
-    return PRODUCTS;
+    return normalizeProducts(PRODUCTS);
   });
 
   // 2. ORDERS STATE (Persisted in Firestore + localStorage cache)
@@ -125,9 +135,10 @@ export const StoreProvider: React.FC<{ children: ReactNode }> = ({ children }) =
     const unsubProducts = subscribeProductsFromFirestore(
       (cloudProducts) => {
         if (cloudProducts && cloudProducts.length > 0) {
-          setProducts(cloudProducts);
+          const normalized = normalizeProducts(cloudProducts);
+          setProducts(normalized);
           try {
-            localStorage.setItem('aura_store_products', JSON.stringify(cloudProducts));
+            localStorage.setItem('aura_store_products', JSON.stringify(normalized));
           } catch {
             // cache ignore
           }
@@ -182,22 +193,20 @@ export const StoreProvider: React.FC<{ children: ReactNode }> = ({ children }) =
 
   const addProduct = (productData: Omit<Product, 'id'>): Product => {
     const newId = `prod-${Date.now()}-${Math.floor(Math.random() * 1000)}`;
-    const newProduct: Product = {
-      ...productData,
-      id: newId
-    };
-    setProducts((prev) => [newProduct, ...prev]);
-    saveProductToFirestore(newProduct).catch((err) =>
+    const [normalized] = normalizeProducts([{ ...productData, id: newId }]);
+    setProducts((prev) => [normalized, ...prev]);
+    saveProductToFirestore(normalized).catch((err) =>
       console.warn('Failed to save new product to Firestore:', err)
     );
-    return newProduct;
+    return normalized;
   };
 
   const updateProduct = (updated: Product) => {
+    const [normalized] = normalizeProducts([updated]);
     setProducts((prev) =>
-      prev.map((item) => (item.id === updated.id ? updated : item))
+      prev.map((item) => (item.id === normalized.id ? normalized : item))
     );
-    saveProductToFirestore(updated).catch((err) =>
+    saveProductToFirestore(normalized).catch((err) =>
       console.warn('Failed to update product in Firestore:', err)
     );
   };

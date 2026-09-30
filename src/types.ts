@@ -1,3 +1,10 @@
+export interface ProductColor {
+  name: string;
+  hex: string;
+  imageIndex?: number;
+  image?: string;
+}
+
 export interface Product {
   id: string;
   name: string;
@@ -7,11 +14,7 @@ export interface Product {
   originalPrice: number;
   discount: number; // percentage, e.g. 30
   images: string[];
-  colors: {
-    name: string;
-    hex: string;
-    imageIndex?: number;
-  }[];
+  colors: ProductColor[];
   sizes: string[];
   rating: number;
   reviewsCount: number;

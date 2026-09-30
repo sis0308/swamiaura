@@ -39,7 +39,8 @@ import {
   Sparkles,
   Ban,
   RotateCcw,
-  AlertTriangle
+  AlertTriangle,
+  Info
 } from 'lucide-react';
 import { motion, AnimatePresence } from 'motion/react';
 
@@ -204,9 +205,9 @@ export const AdminView: React.FC = () => {
     sizes: ['S', 'M', 'L', 'XL', 'XXL'] as string[],
     newCustomSize: '',
     colors: [
-      { name: 'Midnight Black', hex: '#111111' },
-      { name: 'Off White', hex: '#F3F4F6' }
-    ] as { name: string; hex: string }[],
+      { name: 'Midnight Black', hex: '#111111', imageIndex: 0 },
+      { name: 'Off White', hex: '#F3F4F6', imageIndex: 1 }
+    ] as { name: string; hex: string; imageIndex?: number; image?: string }[],
     newColorName: '',
     newColorHex: '#374151',
     isNew: true,
@@ -276,8 +277,8 @@ export const AdminView: React.FC = () => {
       sizes: ['S', 'M', 'L', 'XL', 'XXL'],
       newCustomSize: '',
       colors: [
-        { name: 'Midnight Black', hex: '#111111' },
-        { name: 'Off White', hex: '#F3F4F6' }
+        { name: 'Midnight Black', hex: '#111111', imageIndex: 0 },
+        { name: 'Off White', hex: '#F3F4F6', imageIndex: 1 }
       ],
       newColorName: '',
       newColorHex: '#374151',
@@ -308,7 +309,14 @@ export const AdminView: React.FC = () => {
       stock: product.stock,
       sizes: [...product.sizes],
       newCustomSize: '',
-      colors: [...product.colors],
+      colors: product.colors && product.colors.length > 0
+        ? product.colors.map((c, idx) => ({
+            name: c.name,
+            hex: c.hex,
+            imageIndex: c.imageIndex !== undefined ? c.imageIndex : idx < product.images.length ? idx : 0,
+            image: c.image
+          }))
+        : [{ name: 'Midnight Black', hex: '#111111', imageIndex: 0 }],
       newColorName: '',
       newColorHex: '#374151',
       isNew: !!product.isNew,
@@ -423,9 +431,10 @@ export const AdminView: React.FC = () => {
         showToast('Color Exists', `${preset.name} is already an available color.`, 'info');
         return prev;
       }
+      const nextImageIndex = prev.colors.length < prev.images.length ? prev.colors.length : 0;
       return {
         ...prev,
-        colors: [...prev.colors, preset]
+        colors: [...prev.colors, { ...preset, imageIndex: nextImageIndex }]
       };
     });
     showToast('Color Added', `${preset.name} added to color options.`, 'success');
@@ -438,12 +447,23 @@ export const AdminView: React.FC = () => {
       return;
     }
     const hex = productForm.newColorHex || '#111111';
+    setProductForm((prev) => {
+      const nextImageIndex = prev.colors.length < prev.images.length ? prev.colors.length : 0;
+      return {
+        ...prev,
+        colors: [...prev.colors, { name, hex, imageIndex: nextImageIndex }],
+        newColorName: ''
+      };
+    });
+    showToast('Color Added', `Color "${name}" added to available options.`, 'success');
+  };
+
+  const handleAssignColorImage = (colorIdx: number, imageIndex: number) => {
     setProductForm((prev) => ({
       ...prev,
-      colors: [...prev.colors, { name, hex }],
-      newColorName: ''
+      colors: prev.colors.map((c, idx) => (idx === colorIdx ? { ...c, imageIndex } : c))
     }));
-    showToast('Color Added', `Color "${name}" added to available options.`, 'success');
+    showToast('Photo Linked', `Color "${productForm.colors[colorIdx]?.name}" linked to Photo #${imageIndex + 1}.`, 'info');
   };
 
   const handleRemoveColor = (indexToRemove: number) => {
@@ -1702,6 +1722,25 @@ export const AdminView: React.FC = () => {
                           </button>
                         )}
 
+                        {/* Linked Colors Indicator */}
+                        {(() => {
+                          const linked = productForm.colors.filter((c, cIdx) =>
+                            c.imageIndex !== undefined ? c.imageIndex === idx : cIdx === idx
+                          );
+                          if (linked.length > 0) {
+                            return (
+                              <div className="absolute bottom-1 left-1 right-1 bg-black/85 backdrop-blur-2xs text-white text-[8px] font-mono px-1 py-0.5 truncate flex items-center gap-1 shadow-xs">
+                                <span
+                                  className="w-1.5 h-1.5 rounded-full shrink-0 border border-white/50"
+                                  style={{ backgroundColor: linked[0].hex }}
+                                />
+                                <span className="truncate">{linked.map((c) => c.name).join(', ')}</span>
+                              </div>
+                            );
+                          }
+                          return null;
+                        })()}
+
                         {/* Remove Image Button */}
                         {productForm.images.length > 1 && (
                           <button
@@ -1984,37 +2023,99 @@ export const AdminView: React.FC = () => {
                     </span>
                   </div>
 
-                  {/* Currently Active Colors */}
+                  {/* Color-Wise Photo Switching Guide Box */}
+                  <div className="bg-amber-50/90 border border-amber-200/80 p-3 rounded-xl flex items-start gap-2.5 text-xs text-amber-950 font-sans">
+                    <Info className="w-4 h-4 text-amber-700 shrink-0 mt-0.5" />
+                    <div>
+                      <p className="font-bold text-amber-900">Color-Wise Photo Switching Setup:</p>
+                      <p className="text-[11px] text-amber-800 mt-0.5 leading-relaxed">
+                        When customers select a color on your live website (e.g. Midnight Black, Off White, Navy Blue), the website automatically changes the displayed photo to that color's linked photo. Use the <strong>"Linked Photo"</strong> dropdown below each color to choose which photo appears for that color.
+                      </p>
+                    </div>
+                  </div>
+
+                  {/* Currently Active Colors with Photo Linking */}
                   <div>
-                    <span className="text-[10px] font-mono text-neutral-500 block mb-1.5">
-                      Available Colors for this T-Shirt:
-                    </span>
-                    <div className="flex items-center gap-2 flex-wrap">
-                      {productForm.colors.map((c, idx) => (
-                        <div
-                          key={idx}
-                          className="bg-white border border-gray-300 px-2.5 py-1 flex items-center gap-2 shadow-xs"
-                        >
+                    <div className="flex items-center justify-between mb-2">
+                      <span className="text-[10px] font-mono text-neutral-600 font-bold block">
+                        Active Color Variants & Linked Photo Assignment:
+                      </span>
+                      <span className="text-[9px] font-mono text-emerald-800 bg-emerald-50 px-2 py-0.5 border border-emerald-200 font-semibold">
+                        ✓ Photo updates live on color selection
+                      </span>
+                    </div>
+
+                    <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 gap-2.5">
+                      {productForm.colors.map((c, idx) => {
+                        const currentImgIdx =
+                          c.imageIndex !== undefined
+                            ? c.imageIndex
+                            : idx < productForm.images.length
+                            ? idx
+                            : 0;
+                        const linkedPhotoUrl =
+                          productForm.images[currentImgIdx] || productForm.images[0];
+                        return (
                           <div
-                            className="w-3.5 h-3.5 rounded-full border border-gray-300 shrink-0"
-                            style={{ backgroundColor: c.hex }}
-                          />
-                          <span className="font-mono font-bold text-xs text-neutral-900">
-                            {c.name}
-                          </span>
-                          <span className="text-[9px] font-mono text-neutral-400">
-                            ({c.hex})
-                          </span>
-                          <button
-                            type="button"
-                            onClick={() => handleRemoveColor(idx)}
-                            className="text-neutral-400 hover:text-rose-600 font-bold ml-1 transition-colors"
-                            title={`Remove ${c.name}`}
+                            key={idx}
+                            className="bg-white border border-gray-300 p-3 flex flex-col justify-between gap-2.5 shadow-2xs relative"
                           >
-                            ×
-                          </button>
-                        </div>
-                      ))}
+                            <div className="flex items-center justify-between">
+                              <div className="flex items-center gap-2">
+                                <div
+                                  className="w-4 h-4 rounded-full border border-gray-400 shrink-0 shadow-xs"
+                                  style={{ backgroundColor: c.hex }}
+                                />
+                                <div>
+                                  <span className="font-mono font-bold text-xs text-neutral-950 block leading-tight">
+                                    {c.name}
+                                  </span>
+                                  <span className="text-[9px] font-mono text-neutral-400">
+                                    {c.hex}
+                                  </span>
+                                </div>
+                              </div>
+                              <button
+                                type="button"
+                                onClick={() => handleRemoveColor(idx)}
+                                className="text-neutral-400 hover:text-rose-600 font-bold text-base leading-none px-1.5 py-0.5 transition-colors"
+                                title={`Remove ${c.name}`}
+                              >
+                                ×
+                              </button>
+                            </div>
+
+                            {/* Linked Photo Selector */}
+                            <div className="pt-2 border-t border-gray-100 flex items-center gap-2.5">
+                              <div className="w-10 h-12 bg-neutral-100 border border-gray-200 overflow-hidden shrink-0">
+                                <img
+                                  src={linkedPhotoUrl}
+                                  alt="Linked photo"
+                                  className="w-full h-full object-cover"
+                                />
+                              </div>
+                              <div className="flex-1 min-w-0">
+                                <label className="text-[9px] font-mono uppercase text-neutral-500 font-bold block mb-1">
+                                  Linked Photo View:
+                                </label>
+                                <select
+                                  value={currentImgIdx}
+                                  onChange={(e) =>
+                                    handleAssignColorImage(idx, parseInt(e.target.value))
+                                  }
+                                  className="w-full text-xs font-mono bg-neutral-50 border border-gray-300 px-2 py-1 text-neutral-900 focus:outline-none focus:border-black"
+                                >
+                                  {productForm.images.map((_, imgIdx) => (
+                                    <option key={imgIdx} value={imgIdx}>
+                                      Photo #{imgIdx + 1} {imgIdx === 0 ? '(Main Cover)' : ''}
+                                    </option>
+                                  ))}
+                                </select>
+                              </div>
+                            </div>
+                          </div>
+                        );
+                      })}
                     </div>
                   </div>
 
