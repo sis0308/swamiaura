@@ -9,7 +9,9 @@ import {
   Send,
   CheckCircle2,
   ChevronDown,
-  HelpCircle
+  HelpCircle,
+  Instagram,
+  ExternalLink
 } from 'lucide-react';
 
 const FAQS = [
@@ -118,6 +120,25 @@ export const ContactView: React.FC = () => {
               </div>
 
               <div className="flex items-start gap-4">
+                <div className="w-10 h-10 rounded-full bg-gradient-to-tr from-[#833AB4] via-[#FD1D1D] to-[#FCAF45] flex items-center justify-center text-white shrink-0 shadow-xs">
+                  <Instagram className="w-5 h-5" />
+                </div>
+                <div>
+                  <p className="text-xs text-neutral-500 font-semibold uppercase">Instagram Official</p>
+                  <a
+                    href="https://www.instagram.com/teezoon.in?stkn=MW0xOWY3ZjQwb3djOA=="
+                    target="_blank"
+                    rel="noreferrer"
+                    className="text-base font-extrabold text-neutral-950 hover:text-pink-600 hover:underline flex items-center gap-1.5"
+                  >
+                    <span>@teezoon.in</span>
+                    <ExternalLink className="w-3.5 h-3.5 text-neutral-400" />
+                  </a>
+                  <p className="text-[11px] text-neutral-400 mt-0.5">Follow for drops, styling & new arrivals</p>
+                </div>
+              </div>
+
+              <div className="flex items-start gap-4">
                 <div className="w-10 h-10 rounded-full bg-neutral-100 flex items-center justify-center text-neutral-900 shrink-0">
                   <Mail className="w-5 h-5" />
                 </div>
@@ -155,11 +176,11 @@ export const ContactView: React.FC = () => {
               </div>
             </div>
 
-            {/* Direct Mobile Action Buttons */}
-            <div className="pt-4 border-t border-neutral-100 grid grid-cols-2 gap-3">
+            {/* Direct Mobile & Desktop Action Buttons */}
+            <div className="pt-4 border-t border-neutral-100 grid grid-cols-1 sm:grid-cols-3 gap-2.5">
               <a
                 href="tel:+917756061273"
-                className="bg-neutral-900 hover:bg-black text-white text-center py-3.5 px-4 rounded-xl text-xs font-bold tracking-wide transition-colors flex items-center justify-center gap-2"
+                className="bg-neutral-900 hover:bg-black text-white text-center py-3.5 px-3 rounded-xl text-xs font-bold tracking-wide transition-colors flex items-center justify-center gap-1.5"
               >
                 <Phone className="w-4 h-4" />
                 <span>CALL NOW</span>
@@ -169,10 +190,21 @@ export const ContactView: React.FC = () => {
                 href="https://wa.me/917756061273"
                 target="_blank"
                 rel="noreferrer"
-                className="bg-emerald-600 hover:bg-emerald-700 text-white text-center py-3.5 px-4 rounded-xl text-xs font-bold tracking-wide transition-colors flex items-center justify-center gap-2"
+                className="bg-emerald-600 hover:bg-emerald-700 text-white text-center py-3.5 px-3 rounded-xl text-xs font-bold tracking-wide transition-colors flex items-center justify-center gap-1.5"
               >
                 <MessageCircle className="w-4 h-4" />
                 <span>WHATSAPP</span>
+              </a>
+
+              <a
+                href="https://www.instagram.com/teezoon.in?stkn=MW0xOWY3ZjQwb3djOA=="
+                target="_blank"
+                rel="noreferrer"
+                className="bg-gradient-to-r from-[#833AB4] via-[#FD1D1D] to-[#FCAF45] text-white text-center py-3.5 px-3 rounded-xl text-xs font-bold tracking-wide transition-all hover:opacity-90 flex items-center justify-center gap-1.5 shadow-xs"
+                id="contact-instagram-button"
+              >
+                <Instagram className="w-4 h-4" />
+                <span>INSTAGRAM</span>
               </a>
             </div>
           </div>

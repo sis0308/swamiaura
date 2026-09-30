@@ -135,44 +135,61 @@ export const Footer: React.FC = () => {
               )}
             </div>
 
-            {/* Social Icons */}
-            <div className="flex items-center gap-3 pt-2">
-              <a
-                href="https://instagram.com"
-                target="_blank"
-                rel="noreferrer"
-                className="w-8 h-8 bg-neutral-900 hover:bg-white hover:text-black transition-colors flex items-center justify-center text-neutral-300 border border-neutral-800"
-                aria-label="Instagram"
-              >
-                <Instagram className="w-3.5 h-3.5" />
-              </a>
-              <a
-                href="https://facebook.com"
-                target="_blank"
-                rel="noreferrer"
-                className="w-8 h-8 bg-neutral-900 hover:bg-white hover:text-black transition-colors flex items-center justify-center text-neutral-300 border border-neutral-800"
-                aria-label="Facebook"
-              >
-                <Facebook className="w-3.5 h-3.5" />
-              </a>
-              <a
-                href="https://youtube.com"
-                target="_blank"
-                rel="noreferrer"
-                className="w-8 h-8 bg-neutral-900 hover:bg-white hover:text-black transition-colors flex items-center justify-center text-neutral-300 border border-neutral-800"
-                aria-label="YouTube"
-              >
-                <Youtube className="w-3.5 h-3.5" />
-              </a>
-              <a
-                href="https://wa.me/917756061273"
-                target="_blank"
-                rel="noreferrer"
-                className="w-8 h-8 bg-neutral-900 hover:bg-emerald-600 hover:text-white transition-colors flex items-center justify-center text-neutral-300 border border-neutral-800"
-                aria-label="WhatsApp"
-              >
-                <MessageCircle className="w-3.5 h-3.5" />
-              </a>
+            {/* Social Icons & Instagram Follow */}
+            <div className="space-y-3 pt-2">
+              <div className="flex items-center gap-3">
+                <a
+                  href="https://www.instagram.com/teezoon.in?stkn=MW0xOWY3ZjQwb3djOA=="
+                  target="_blank"
+                  rel="noreferrer"
+                  className="w-8 h-8 bg-neutral-900 hover:bg-[#E1306C] hover:text-white transition-colors flex items-center justify-center text-neutral-300 border border-neutral-800"
+                  aria-label="Instagram @teezoon.in"
+                  id="footer-instagram-icon"
+                >
+                  <Instagram className="w-3.5 h-3.5" />
+                </a>
+                <a
+                  href="https://facebook.com"
+                  target="_blank"
+                  rel="noreferrer"
+                  className="w-8 h-8 bg-neutral-900 hover:bg-white hover:text-black transition-colors flex items-center justify-center text-neutral-300 border border-neutral-800"
+                  aria-label="Facebook"
+                >
+                  <Facebook className="w-3.5 h-3.5" />
+                </a>
+                <a
+                  href="https://youtube.com"
+                  target="_blank"
+                  rel="noreferrer"
+                  className="w-8 h-8 bg-neutral-900 hover:bg-white hover:text-black transition-colors flex items-center justify-center text-neutral-300 border border-neutral-800"
+                  aria-label="YouTube"
+                >
+                  <Youtube className="w-3.5 h-3.5" />
+                </a>
+                <a
+                  href="https://wa.me/917756061273"
+                  target="_blank"
+                  rel="noreferrer"
+                  className="w-8 h-8 bg-neutral-900 hover:bg-emerald-600 hover:text-white transition-colors flex items-center justify-center text-neutral-300 border border-neutral-800"
+                  aria-label="WhatsApp"
+                >
+                  <MessageCircle className="w-3.5 h-3.5" />
+                </a>
+              </div>
+
+              {/* Instagram Direct Button */}
+              <div>
+                <a
+                  href="https://www.instagram.com/teezoon.in?stkn=MW0xOWY3ZjQwb3djOA=="
+                  target="_blank"
+                  rel="noreferrer"
+                  className="inline-flex items-center gap-2 bg-gradient-to-r from-[#833AB4] via-[#FD1D1D] to-[#FCAF45] hover:opacity-90 text-white text-[11px] font-bold py-2 px-3.5 rounded-lg transition-all shadow-sm"
+                  id="footer-instagram-btn"
+                >
+                  <Instagram className="w-3.5 h-3.5" />
+                  <span>Follow @teezoon.in</span>
+                </a>
+              </div>
             </div>
           </div>
 
