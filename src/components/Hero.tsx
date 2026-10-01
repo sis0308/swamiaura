@@ -1,6 +1,6 @@
 import React, { useState } from 'react';
 import { useCart } from '../context/CartContext';
-import { ArrowRight, ShieldCheck, Truck, RotateCcw, Sparkles, CheckCircle2 } from 'lucide-react';
+import { ArrowRight, ShieldCheck, Truck, RotateCcw, CheckCircle2 } from 'lucide-react';
 
 const FEATURED_HIGHLIGHTS = [
   {
@@ -45,12 +45,6 @@ export const Hero: React.FC = () => {
           
           {/* Left Text Block */}
           <div className="lg:col-span-7 space-y-6 text-left">
-            {/* Top Eyebrow Tag */}
-            <div className="inline-flex items-center gap-2 px-3 py-1 rounded-full bg-neutral-900 border border-neutral-800 text-[11px] font-bold uppercase tracking-wider text-amber-400">
-              <Sparkles className="w-3.5 h-3.5" />
-              <span>OFFICIAL TEEZOON STORE · 100% COMBED COTTON</span>
-            </div>
-
             {/* Main Headline */}
             <div className="space-y-3">
               <h1 className="text-3xl sm:text-5xl xl:text-6xl font-extrabold tracking-tight text-white leading-[1.1]">
