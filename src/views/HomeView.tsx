@@ -52,7 +52,7 @@ export const HomeView: React.FC = () => {
 
   return (
     <div className="space-y-0">
-      {/* 1. Hero Section */}
+      {/* 1. Normal Hero Banner (Static, Clean, No Slideshow) */}
       <Hero />
 
       {/* 2. 10 T-Shirt Categories Showcase */}

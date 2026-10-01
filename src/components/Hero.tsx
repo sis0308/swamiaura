@@ -1,162 +1,170 @@
-import React, { useState, useEffect } from 'react';
+import React, { useState } from 'react';
 import { useCart } from '../context/CartContext';
-import { ArrowRight, Sparkles, ShieldCheck, Truck, RotateCcw, Flame } from 'lucide-react';
-import { motion, AnimatePresence } from 'motion/react';
+import { ArrowRight, ShieldCheck, Truck, RotateCcw, Sparkles, CheckCircle2 } from 'lucide-react';
 
-const HERO_SLIDES = [
+const FEATURED_HIGHLIGHTS = [
   {
-    tagline: 'AUTUMN / SUMMER 2026 DROP',
-    headline: 'WEAR YOUR STYLE',
-    subheadline: 'Premium Heavyweight 240 GSM T-Shirts Engineered For The Perfect Streetwear & Tailored Silhouette.',
-    image: 'https://images.unsplash.com/photo-1583743814966-8936f5b7be1a?auto=format&fit=crop&w=1400&q=85',
+    id: 'oversized',
+    title: '240 GSM Oversized',
+    desc: 'Heavyweight drop-shoulder streetwear cuts with zero sag.',
+    image: 'https://images.unsplash.com/photo-1583743814966-8936f5b7be1a?auto=format&fit=crop&w=1200&q=85',
     categoryTarget: '/category/oversized',
-    badgeText: '240 GSM French Terry'
+    badge: 'Heavyweight 240 GSM',
+    price: 'From ₹699'
   },
   {
-    tagline: 'CONTEMPORARY LUXURY ESSENTIALS',
-    headline: 'EFFORTLESS ELEGANCE',
-    subheadline: 'Egyptian Giza & Micro-Piqué Cotton Polos That Define Smart Casual Mastery.',
-    image: 'https://images.unsplash.com/photo-1625910513413-56254c46fdf7?auto=format&fit=crop&w=1400&q=85',
+    id: 'polo',
+    title: 'Micro-Piqué Polos',
+    desc: 'Egyptian Giza cotton collared knit for smart casual wear.',
+    image: 'https://images.unsplash.com/photo-1625910513413-56254c46fdf7?auto=format&fit=crop&w=1200&q=85',
     categoryTarget: '/category/polo',
-    badgeText: '100% Egyptian Giza Cotton'
+    badge: '100% Giza Cotton',
+    price: 'From ₹799'
   },
   {
-    tagline: 'NEO-TOKYO GRAPHIC ART DROP',
-    headline: 'STATEMENT GRAPHICS',
-    subheadline: 'High-Density Discharge Prints on Bio-Washed Ring-Spun Organic Cotton.',
-    image: 'https://images.unsplash.com/photo-1503342217505-b0a15ec3261c?auto=format&fit=crop&w=1400&q=85',
+    id: 'printed',
+    title: 'Graphic Art Tees',
+    desc: 'High-density discharge prints on bio-washed organic cotton.',
+    image: 'https://images.unsplash.com/photo-1503342217505-b0a15ec3261c?auto=format&fit=crop&w=1200&q=85',
     categoryTarget: '/category/printed',
-    badgeText: 'Zero-Crack Ink Art'
+    badge: 'Zero-Crack Print',
+    price: 'From ₹599'
   }
 ];
 
 export const Hero: React.FC = () => {
   const { navigateTo } = useCart();
-  const [currentSlide, setCurrentSlide] = useState(0);
+  const [selectedHighlightIndex, setSelectedHighlightIndex] = useState(0);
 
-  useEffect(() => {
-    const timer = setInterval(() => {
-      setCurrentSlide((prev) => (prev + 1) % HERO_SLIDES.length);
-    }, 6000);
-    return () => clearInterval(timer);
-  }, []);
-
-  const slide = HERO_SLIDES[currentSlide];
+  const selectedFeature = FEATURED_HIGHLIGHTS[selectedHighlightIndex];
 
   return (
-    <div className="relative bg-[#111111] text-white overflow-hidden border-b border-neutral-800">
-      <div className="relative z-10 max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-12 sm:py-20 lg:py-24">
-        <div className="grid grid-cols-1 lg:grid-cols-12 gap-12 items-center">
+    <div className="relative bg-neutral-950 text-white overflow-hidden border-b border-neutral-800">
+      <div className="relative z-10 max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-10 sm:py-16 lg:py-20">
+        <div className="grid grid-cols-1 lg:grid-cols-12 gap-10 items-center">
           
           {/* Left Text Block */}
-          <div className="lg:col-span-7 space-y-6 sm:space-y-8 text-left">
+          <div className="lg:col-span-7 space-y-6 text-left">
             {/* Top Eyebrow Tag */}
-            <div className="inline-flex items-center gap-2 border-b border-neutral-700 pb-1 text-[10px] font-bold uppercase tracking-[0.25em] text-neutral-400">
-              <span className="w-1.5 h-1.5 bg-white rounded-none" />
-              <span>{slide.tagline}</span>
+            <div className="inline-flex items-center gap-2 px-3 py-1 rounded-full bg-neutral-900 border border-neutral-800 text-[11px] font-bold uppercase tracking-wider text-amber-400">
+              <Sparkles className="w-3.5 h-3.5" />
+              <span>OFFICIAL TEEZOON STORE · 100% COMBED COTTON</span>
             </div>
 
             {/* Main Headline */}
             <div className="space-y-3">
-              <h1 className="text-4xl sm:text-6xl xl:text-7xl font-serif italic tracking-tight text-white leading-[1.05]">
-                Wear Your <br />
-                <span className="not-italic font-normal uppercase tracking-tight text-white">
-                  Signature Silhouette
-                </span>
+              <h1 className="text-3xl sm:text-5xl xl:text-6xl font-extrabold tracking-tight text-white leading-[1.1]">
+                Everyday Luxury <br />
+                <span className="text-neutral-400 font-normal">Heavyweight T-Shirts</span>
               </h1>
-              <p className="text-sm sm:text-base text-neutral-400 max-w-xl leading-relaxed">
-                240 GSM Combed Cotton · Zero-Pill Bio-Wash · Engineered Drop-Shoulder & Tailored Piqué Architecture.
+              <p className="text-sm sm:text-base text-neutral-300 max-w-xl leading-relaxed">
+                240 GSM Bio-Washed French Terry, Micro-Piqué Polos & Signature Everyday Basics. Engineered for zero shrinkage, colorfastness, and all-day comfort.
               </p>
             </div>
 
-            {/* CTAs */}
-            <div className="flex flex-wrap items-center gap-4 pt-2">
+            {/* Direct Action CTAs */}
+            <div className="flex flex-wrap items-center gap-3 pt-2">
               <button
                 onClick={() => navigateTo('/shop')}
-                className="bg-white hover:bg-neutral-200 text-black font-bold px-8 py-3.5 text-[11px] tracking-[0.2em] uppercase transition-all flex items-center gap-2 rounded-none"
-                id="hero-shop-now-btn"
+                className="bg-white hover:bg-neutral-200 text-black font-extrabold px-7 py-3.5 text-xs tracking-wider uppercase transition-all flex items-center gap-2 rounded-xl shadow-lg hover:scale-102"
+                id="hero-shop-all-btn"
               >
-                <span>SHOP COLLECTION</span>
-                <ArrowRight className="w-3.5 h-3.5" />
+                <span>SHOP ALL T-SHIRTS</span>
+                <ArrowRight className="w-4 h-4" />
               </button>
 
               <button
-                onClick={() => navigateTo('/category/oversized')}
-                className="bg-transparent hover:bg-white/10 text-white border border-neutral-600 font-semibold px-7 py-3.5 text-[11px] tracking-[0.2em] uppercase transition-all rounded-none"
-                id="hero-explore-collection-btn"
+                onClick={() => navigateTo('/new-arrivals')}
+                className="bg-neutral-900 hover:bg-neutral-800 text-white border border-neutral-700 font-bold px-6 py-3.5 text-xs tracking-wider uppercase transition-all rounded-xl hover:border-neutral-500"
+                id="hero-new-arrivals-btn"
               >
-                <span>OVERSIZED (240 GSM)</span>
+                <span>NEW ARRIVALS</span>
+              </button>
+
+              <button
+                onClick={() => navigateTo('/best-sellers')}
+                className="bg-neutral-900 hover:bg-neutral-800 text-rose-300 border border-neutral-700 font-bold px-5 py-3.5 text-xs tracking-wider uppercase transition-all rounded-xl hover:border-neutral-500"
+                id="hero-best-sellers-btn"
+              >
+                <span>BEST SELLERS</span>
               </button>
             </div>
 
-            {/* Quick Metrics / Guarantees */}
-            <div className="pt-6 border-t border-neutral-800 grid grid-cols-3 gap-4 text-[10px] uppercase tracking-widest text-neutral-400 font-mono">
+            {/* Trust Highlights Strip */}
+            <div className="pt-6 border-t border-neutral-800/80 grid grid-cols-2 sm:grid-cols-4 gap-3 text-[11px] font-mono text-neutral-300">
               <div className="flex items-center gap-2">
-                <ShieldCheck className="w-3.5 h-3.5 text-neutral-300 shrink-0" />
-                <span>240 GSM Combed</span>
+                <CheckCircle2 className="w-4 h-4 text-emerald-400 shrink-0" />
+                <span>100% Bio-Wash</span>
               </div>
               <div className="flex items-center gap-2">
-                <Truck className="w-3.5 h-3.5 text-neutral-300 shrink-0" />
-                <span>Express Pan-India</span>
+                <ShieldCheck className="w-4 h-4 text-emerald-400 shrink-0" />
+                <span>240 GSM French Terry</span>
               </div>
               <div className="flex items-center gap-2">
-                <RotateCcw className="w-3.5 h-3.5 text-neutral-300 shrink-0" />
-                <span>7-Day Exchange</span>
+                <Truck className="w-4 h-4 text-emerald-400 shrink-0" />
+                <span>Pan-India Delivery</span>
+              </div>
+              <div className="flex items-center gap-2">
+                <RotateCcw className="w-4 h-4 text-emerald-400 shrink-0" />
+                <span>7-Day Return/Exchange</span>
               </div>
             </div>
           </div>
 
-          {/* Right Image Feature with Smooth Slide Transitions */}
-          <div className="lg:col-span-5 relative">
-            <div className="relative mx-auto max-w-md lg:max-w-none">
-              <div className="relative aspect-3/4 w-full bg-[#1A1A1A] overflow-hidden border border-neutral-800 shadow-2xl">
-                <AnimatePresence mode="wait">
-                  <motion.img
-                    key={slide.image}
-                    src={slide.image}
-                    alt={slide.headline}
-                    initial={{ opacity: 0, scale: 1.04 }}
-                    animate={{ opacity: 1, scale: 1 }}
-                    exit={{ opacity: 0 }}
-                    transition={{ duration: 0.6, ease: 'easeOut' }}
-                    className="w-full h-full object-cover object-center"
-                  />
-                </AnimatePresence>
-
-                {/* Floating Product Callout Card on Image */}
-                <div className="absolute bottom-0 left-0 right-0 bg-black/85 backdrop-blur-md p-4 border-t border-neutral-800 flex items-center justify-between text-left">
+          {/* Right Product Showcase - Normal Static Presentation (No Slideshow!) */}
+          <div className="lg:col-span-5 text-left">
+            <div className="bg-neutral-900/90 rounded-2xl border border-neutral-800 p-4 shadow-xl">
+              {/* Image Preview */}
+              <div className="relative aspect-4/3 sm:aspect-3/4 rounded-xl overflow-hidden bg-neutral-950 border border-neutral-800">
+                <img
+                  src={selectedFeature.image}
+                  alt={selectedFeature.title}
+                  className="w-full h-full object-cover object-center"
+                />
+                
+                {/* Floating Info Overlay */}
+                <div className="absolute bottom-0 inset-x-0 bg-gradient-to-t from-black/95 via-black/80 to-transparent p-4 flex items-end justify-between">
                   <div>
-                    <span className="text-[9px] uppercase font-bold text-amber-400 tracking-widest block font-mono">
-                      {slide.badgeText}
+                    <span className="text-[10px] font-mono font-bold uppercase tracking-wider text-amber-400">
+                      {selectedFeature.badge}
                     </span>
-                    <p className="text-xs font-serif italic text-white mt-0.5">
-                      Summer 2026 Editorial Drop
+                    <h3 className="text-base font-bold text-white mt-0.5">
+                      {selectedFeature.title}
+                    </h3>
+                    <p className="text-xs text-neutral-300 font-mono">
+                      {selectedFeature.price}
                     </p>
-                    <p className="text-[10px] text-neutral-400 font-mono">From ₹599</p>
                   </div>
+
                   <button
-                    onClick={() => navigateTo(slide.categoryTarget)}
-                    className="bg-white text-black text-[10px] font-bold uppercase tracking-wider px-3 py-1.5 hover:bg-neutral-200 transition-colors flex items-center gap-1 shrink-0"
+                    onClick={() => navigateTo(selectedFeature.categoryTarget)}
+                    className="bg-white hover:bg-neutral-200 text-black px-4 py-2 rounded-lg text-xs font-bold uppercase tracking-wider transition-all flex items-center gap-1.5 shrink-0 shadow-md"
                   >
-                    <span>View</span>
-                    <ArrowRight className="w-3 h-3" />
+                    <span>VIEW</span>
+                    <ArrowRight className="w-3.5 h-3.5" />
                   </button>
                 </div>
               </div>
 
-              {/* Slider Dots */}
-              <div className="flex items-center justify-center gap-2 mt-4">
-                {HERO_SLIDES.map((_, index) => (
+              {/* Interactive Tabs to switch between the 3 top highlights on user click (No Auto Slide) */}
+              <div className="grid grid-cols-3 gap-2 mt-3">
+                {FEATURED_HIGHLIGHTS.map((item, idx) => (
                   <button
-                    key={index}
-                    onClick={() => setCurrentSlide(index)}
-                    className={`h-1 transition-all ${
-                      currentSlide === index
-                        ? 'w-6 bg-white'
-                        : 'w-2 bg-neutral-700 hover:bg-neutral-500'
+                    key={item.id}
+                    onClick={() => setSelectedHighlightIndex(idx)}
+                    className={`p-2 rounded-xl text-left border transition-all ${
+                      selectedHighlightIndex === idx
+                        ? 'bg-neutral-800 border-neutral-500 text-white'
+                        : 'bg-neutral-950/60 border-neutral-800 text-neutral-400 hover:text-neutral-200'
                     }`}
-                    aria-label={`Go to slide ${index + 1}`}
-                  />
+                  >
+                    <p className="text-[10px] font-mono font-bold uppercase truncate">
+                      {item.title}
+                    </p>
+                    <p className="text-[9px] text-neutral-400 mt-0.5">
+                      {item.price}
+                    </p>
+                  </button>
                 ))}
               </div>
             </div>

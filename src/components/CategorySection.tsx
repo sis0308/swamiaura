@@ -22,7 +22,7 @@ export const CategorySection: React.FC = () => {
               Browse By Category
             </h2>
             <p className="text-sm text-neutral-600 mt-2 max-w-xl">
-              Explore 10 bespoke styles crafted for every silhouette, occasion, and lifestyle.
+              Explore 10 bespoke T-Shirt categories crafted for every silhouette, occasion, and lifestyle.
             </p>
           </div>
 

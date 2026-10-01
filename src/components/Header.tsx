@@ -296,9 +296,15 @@ export const Header: React.FC = () => {
 
             {/* Right Action Icons & Contact Number */}
             <div className="flex items-center space-x-6">
-              <span className="text-[10px] font-mono font-medium hidden xl:block text-neutral-700 tracking-wider">
-                CALL: +91 98765 43210
-              </span>
+              <a
+                href="tel:+917756061273"
+                className="text-[11px] font-mono font-semibold hidden xl:flex items-center gap-1.5 text-neutral-800 hover:text-black hover:bg-neutral-100 transition-colors px-2.5 py-1 rounded-full border border-neutral-200 tracking-wider"
+                title="Call TEEZOON: +91 77560 61273"
+                id="header-nav-call"
+              >
+                <Phone className="w-3 h-3 text-neutral-500" />
+                <span>CALL: +91 77560 61273</span>
+              </a>
 
               <div className="flex items-center space-x-4">
                 {/* Search Icon */}
