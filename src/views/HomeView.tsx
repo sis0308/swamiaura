@@ -18,7 +18,8 @@ import {
   CheckCircle2,
   Star,
   Instagram,
-  ExternalLink
+  ExternalLink,
+  Youtube
 } from 'lucide-react';
 import { motion } from 'motion/react';
 
@@ -259,6 +260,24 @@ export const HomeView: React.FC = () => {
                 </div>
 
                 <div className="flex items-start gap-3.5">
+                  <div className="w-10 h-10 rounded-full bg-[#FF0000] text-white flex items-center justify-center shrink-0 shadow-xs">
+                    <Youtube className="w-5 h-5" />
+                  </div>
+                  <div>
+                    <p className="text-xs text-neutral-500 font-semibold uppercase">Official YouTube</p>
+                    <a
+                      href="https://youtube.com/@teezoon?si=8r9mlRYz0VLKXsGDsi=8r9mlRYz0VLKXsGD"
+                      target="_blank"
+                      rel="noreferrer"
+                      className="text-base font-extrabold text-neutral-950 hover:text-red-600 hover:underline flex items-center gap-1.5"
+                    >
+                      <span>@teezoon</span>
+                      <ExternalLink className="w-3.5 h-3.5 text-neutral-400" />
+                    </a>
+                  </div>
+                </div>
+
+                <div className="flex items-start gap-3.5">
                   <div className="w-10 h-10 rounded-full bg-emerald-50 text-emerald-600 flex items-center justify-center shrink-0">
                     <MessageCircle className="w-5 h-5" />
                   </div>
@@ -296,12 +315,12 @@ export const HomeView: React.FC = () => {
               </div>
 
               {/* Direct Mobile Quick Buttons */}
-              <div className="pt-4 border-t border-neutral-100 grid grid-cols-1 sm:grid-cols-3 gap-2.5">
+              <div className="pt-4 border-t border-neutral-100 grid grid-cols-2 sm:grid-cols-4 gap-2">
                 <a
                   href="tel:+917756061273"
-                  className="bg-neutral-900 hover:bg-black text-white text-center py-3 px-3 rounded-xl text-xs font-bold tracking-wide transition-colors flex items-center justify-center gap-1.5"
+                  className="bg-neutral-900 hover:bg-black text-white text-center py-3 px-2 rounded-xl text-xs font-bold tracking-wide transition-colors flex items-center justify-center gap-1.5"
                 >
-                  <Phone className="w-4 h-4" />
+                  <Phone className="w-3.5 h-3.5" />
                   <span>CALL</span>
                 </a>
 
@@ -309,9 +328,9 @@ export const HomeView: React.FC = () => {
                   href="https://wa.me/917756061273"
                   target="_blank"
                   rel="noreferrer"
-                  className="bg-emerald-600 hover:bg-emerald-700 text-white text-center py-3 px-3 rounded-xl text-xs font-bold tracking-wide transition-colors flex items-center justify-center gap-1.5"
+                  className="bg-emerald-600 hover:bg-emerald-700 text-white text-center py-3 px-2 rounded-xl text-xs font-bold tracking-wide transition-colors flex items-center justify-center gap-1.5"
                 >
-                  <MessageCircle className="w-4 h-4" />
+                  <MessageCircle className="w-3.5 h-3.5" />
                   <span>WHATSAPP</span>
                 </a>
 
@@ -319,11 +338,22 @@ export const HomeView: React.FC = () => {
                   href="https://www.instagram.com/teezoon.in?stkn=MW0xOWY3ZjQwb3djOA=="
                   target="_blank"
                   rel="noreferrer"
-                  className="bg-gradient-to-r from-[#833AB4] via-[#FD1D1D] to-[#FCAF45] text-white text-center py-3 px-3 rounded-xl text-xs font-bold tracking-wide transition-all hover:opacity-90 flex items-center justify-center gap-1.5 shadow-xs"
+                  className="bg-gradient-to-r from-[#833AB4] via-[#FD1D1D] to-[#FCAF45] text-white text-center py-3 px-2 rounded-xl text-xs font-bold tracking-wide transition-all hover:opacity-90 flex items-center justify-center gap-1.5 shadow-xs"
                   id="home-instagram-button"
                 >
-                  <Instagram className="w-4 h-4" />
+                  <Instagram className="w-3.5 h-3.5" />
                   <span>INSTAGRAM</span>
+                </a>
+
+                <a
+                  href="https://youtube.com/@teezoon?si=8r9mlRYz0VLKXsGDsi=8r9mlRYz0VLKXsGD"
+                  target="_blank"
+                  rel="noreferrer"
+                  className="bg-[#FF0000] hover:bg-[#CC0000] text-white text-center py-3 px-2 rounded-xl text-xs font-bold tracking-wide transition-all flex items-center justify-center gap-1.5 shadow-xs"
+                  id="home-youtube-button"
+                >
+                  <Youtube className="w-3.5 h-3.5" />
+                  <span>YOUTUBE</span>
                 </a>
               </div>
             </div>

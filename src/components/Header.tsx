@@ -14,7 +14,8 @@ import {
   Flame,
   ShieldCheck,
   Lock,
-  Instagram
+  Instagram,
+  Youtube
 } from 'lucide-react';
 import { motion, AnimatePresence } from 'motion/react';
 import { CATEGORIES } from '../data/categories';
@@ -88,6 +89,18 @@ export const Header: React.FC = () => {
             >
               <Instagram className="w-3 h-3 text-[#E1306C]" />
               <span>@TEEZOON.IN</span>
+            </a>
+            <span className="text-neutral-700">|</span>
+            <a
+              href="https://youtube.com/@teezoon?si=8r9mlRYz0VLKXsGDsi=8r9mlRYz0VLKXsGD"
+              target="_blank"
+              rel="noopener noreferrer"
+              className="flex items-center gap-1.5 hover:text-red-400 transition-colors"
+              id="header-top-youtube"
+              title="Subscribe to @teezoon on YouTube"
+            >
+              <Youtube className="w-3.5 h-3.5 text-[#FF0000]" />
+              <span>YOUTUBE</span>
             </a>
             <span className="text-neutral-700">|</span>
             <a
@@ -471,6 +484,16 @@ export const Header: React.FC = () => {
                 >
                   <Instagram className="w-4 h-4" />
                   <span>Follow @teezoon.in on Instagram</span>
+                </a>
+                <a
+                  href="https://youtube.com/@teezoon?si=8r9mlRYz0VLKXsGDsi=8r9mlRYz0VLKXsGD"
+                  target="_blank"
+                  rel="noopener noreferrer"
+                  className="w-full flex items-center justify-center gap-2 bg-[#FF0000] hover:bg-[#CC0000] text-white py-3 text-sm font-semibold transition-all rounded-xl shadow-xs"
+                  id="mobile-drawer-youtube-link"
+                >
+                  <Youtube className="w-4 h-4" />
+                  <span>Subscribe on YouTube (@teezoon)</span>
                 </a>
                 <a
                   href="https://wa.me/917756061273?text=Hi%20TEEZOON!%20I%20would%20like%20to%20order%20T-Shirts."

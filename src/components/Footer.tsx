@@ -158,11 +158,12 @@ export const Footer: React.FC = () => {
                   <Facebook className="w-3.5 h-3.5" />
                 </a>
                 <a
-                  href="https://youtube.com"
+                  href="https://youtube.com/@teezoon?si=8r9mlRYz0VLKXsGDsi=8r9mlRYz0VLKXsGD"
                   target="_blank"
                   rel="noreferrer"
-                  className="w-8 h-8 bg-neutral-900 hover:bg-white hover:text-black transition-colors flex items-center justify-center text-neutral-300 border border-neutral-800"
-                  aria-label="YouTube"
+                  className="w-8 h-8 bg-neutral-900 hover:bg-[#FF0000] hover:text-white transition-colors flex items-center justify-center text-neutral-300 border border-neutral-800"
+                  aria-label="YouTube @teezoon"
+                  id="footer-youtube-icon"
                 >
                   <Youtube className="w-3.5 h-3.5" />
                 </a>
@@ -177,17 +178,27 @@ export const Footer: React.FC = () => {
                 </a>
               </div>
 
-              {/* Instagram Direct Button */}
-              <div>
+              {/* Instagram & YouTube Direct Buttons */}
+              <div className="flex flex-wrap items-center gap-2 pt-1">
                 <a
                   href="https://www.instagram.com/teezoon.in?stkn=MW0xOWY3ZjQwb3djOA=="
                   target="_blank"
                   rel="noreferrer"
-                  className="inline-flex items-center gap-2 bg-gradient-to-r from-[#833AB4] via-[#FD1D1D] to-[#FCAF45] hover:opacity-90 text-white text-[11px] font-bold py-2 px-3.5 rounded-lg transition-all shadow-sm"
+                  className="inline-flex items-center gap-2 bg-gradient-to-r from-[#833AB4] via-[#FD1D1D] to-[#FCAF45] hover:opacity-90 text-white text-[11px] font-bold py-2 px-3 rounded-lg transition-all shadow-sm"
                   id="footer-instagram-btn"
                 >
                   <Instagram className="w-3.5 h-3.5" />
                   <span>Follow @teezoon.in</span>
+                </a>
+                <a
+                  href="https://youtube.com/@teezoon?si=8r9mlRYz0VLKXsGDsi=8r9mlRYz0VLKXsGD"
+                  target="_blank"
+                  rel="noreferrer"
+                  className="inline-flex items-center gap-2 bg-[#FF0000] hover:bg-[#CC0000] text-white text-[11px] font-bold py-2 px-3 rounded-lg transition-all shadow-sm"
+                  id="footer-youtube-btn"
+                >
+                  <Youtube className="w-3.5 h-3.5" />
+                  <span>YouTube @teezoon</span>
                 </a>
               </div>
             </div>

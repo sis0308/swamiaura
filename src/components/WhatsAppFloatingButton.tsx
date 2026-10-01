@@ -1,5 +1,5 @@
 import React from 'react';
-import { MessageCircle, PhoneCall, Instagram } from 'lucide-react';
+import { MessageCircle, PhoneCall, Instagram, Youtube } from 'lucide-react';
 
 export const WhatsAppFloatingButton: React.FC = () => {
   const phoneNumber = '+917756061273';
@@ -7,9 +7,25 @@ export const WhatsAppFloatingButton: React.FC = () => {
     'Hi TEEZOON! I would like to inquire about your premium T-Shirts.'
   )}`;
   const instagramUrl = 'https://www.instagram.com/teezoon.in?stkn=MW0xOWY3ZjQwb3djOA==';
+  const youtubeUrl = 'https://youtube.com/@teezoon?si=8r9mlRYz0VLKXsGDsi=8r9mlRYz0VLKXsGD';
 
   return (
     <div className="fixed bottom-6 left-6 z-40 flex flex-col gap-2.5 items-start">
+      {/* YouTube Button */}
+      <a
+        href={youtubeUrl}
+        target="_blank"
+        rel="noopener noreferrer"
+        className="group flex items-center gap-2.5 bg-[#FF0000] hover:bg-[#CC0000] text-white px-3.5 py-2.5 rounded-full shadow-lg hover:shadow-red-500/30 transition-all transform hover:-translate-y-0.5 active:translate-y-0"
+        aria-label="Subscribe to @teezoon on YouTube"
+        id="floating-youtube-btn"
+      >
+        <Youtube className="w-5 h-5 shrink-0" />
+        <span className="text-xs font-semibold tracking-wide hidden md:inline-block">
+          YouTube: @teezoon
+        </span>
+      </a>
+
       {/* Instagram Button */}
       <a
         href={instagramUrl}
