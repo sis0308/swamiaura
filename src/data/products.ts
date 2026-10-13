@@ -33,7 +33,9 @@ export const PRODUCTS: Product[] = [
     isBestSeller: true,
     isOffer: true,
     stock: 45,
-    tags: ['oversized', 'black', 'heavyweight', 'streetwear', 'best-seller']
+    tags: ['oversized', 'black', 'heavyweight', 'streetwear', 'best-seller'],
+    video: 'https://assets.mixkit.co/videos/preview/mixkit-man-posing-in-a-black-t-shirt-41315-large.mp4',
+    videoThumbnail: 'https://images.unsplash.com/photo-1583743814966-8936f5b7be1a?auto=format&fit=crop&w=500&q=80'
   },
   {
     id: 'prod-2',
@@ -68,7 +70,9 @@ export const PRODUCTS: Product[] = [
     isBestSeller: true,
     isOffer: false,
     stock: 30,
-    tags: ['polo', 'collared', 'navy', 'formal', 'smart-casual']
+    tags: ['polo', 'collared', 'navy', 'formal', 'smart-casual'],
+    video: 'https://assets.mixkit.co/videos/preview/mixkit-man-in-white-t-shirt-posing-41316-large.mp4',
+    videoThumbnail: 'https://images.unsplash.com/photo-1625910513413-56254c46fdf7?auto=format&fit=crop&w=500&q=80'
   },
   {
     id: 'prod-3',

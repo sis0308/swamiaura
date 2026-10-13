@@ -1,6 +1,20 @@
 import React, { useState, useEffect } from 'react';
 import { useCart } from '../context/CartContext';
-import { X, Star, ShoppingBag, Heart, ArrowRight, ShieldCheck, Truck, Check } from 'lucide-react';
+import {
+  X,
+  Star,
+  ShoppingBag,
+  Heart,
+  ArrowRight,
+  ShieldCheck,
+  Truck,
+  Check,
+  ChevronLeft,
+  ChevronRight,
+  RotateCw,
+  Video,
+  Play
+} from 'lucide-react';
 import { motion, AnimatePresence } from 'motion/react';
 
 export const QuickViewModal: React.FC = () => {
@@ -20,12 +34,26 @@ export const QuickViewModal: React.FC = () => {
   const [selectedColor, setSelectedColor] = useState<string>('');
   const [selectedImageIndex, setSelectedImageIndex] = useState(0);
   const [quantity, setQuantity] = useState(1);
+  const [isVideoActive, setIsVideoActive] = useState(false);
+
+  const handleRollLeft = () => {
+    if (!product) return;
+    setIsVideoActive(false);
+    setSelectedImageIndex((prev) => (prev === 0 ? product.images.length - 1 : prev - 1));
+  };
+
+  const handleRollRight = () => {
+    if (!product) return;
+    setIsVideoActive(false);
+    setSelectedImageIndex((prev) => (prev === product.images.length - 1 ? 0 : prev + 1));
+  };
 
   useEffect(() => {
     if (product) {
       setSelectedSize(product.sizes[0] || 'M');
-      const defaultColor = product.colors[0];
-      setSelectedColor(defaultColor?.name || 'Standard');
+      const hasColors = Boolean(product.colors && product.colors.length > 0);
+      const defaultColor = hasColors ? product.colors[0] : null;
+      setSelectedColor(defaultColor?.name || '');
       setQuantity(1);
 
       if (defaultColor?.image && product.images.includes(defaultColor.image)) {
@@ -44,6 +72,7 @@ export const QuickViewModal: React.FC = () => {
 
   const handleColorSelect = (colorName: string, colorIdx: number) => {
     setSelectedColor(colorName);
+    if (!product.colors || product.colors.length === 0) return;
     const colorObj = product.colors.find((c) => c.name === colorName);
     if (!colorObj) return;
 
@@ -67,6 +96,7 @@ export const QuickViewModal: React.FC = () => {
 
   const handleThumbnailClick = (imgIdx: number) => {
     setSelectedImageIndex(imgIdx);
+    if (!product.colors || product.colors.length === 0) return;
     const targetUrl = product.images[imgIdx];
     const matchingColor = product.colors.find((c, cIdx) => 
       (c.image && c.image === targetUrl) ||
@@ -119,27 +149,71 @@ export const QuickViewModal: React.FC = () => {
           <div className="grid grid-cols-1 md:grid-cols-2">
             {/* Left: Gallery */}
             <div className="p-6 sm:p-8 bg-neutral-50 flex flex-col justify-between space-y-4">
-              <div className="relative aspect-4/5 w-full bg-white rounded-2xl overflow-hidden shadow-xs border border-neutral-200">
-                <img
-                  src={product.images[selectedImageIndex] || product.images[0]}
-                  alt={product.name}
-                  className="w-full h-full object-cover object-center"
-                />
-                {product.discount > 0 && (
-                  <span className="absolute top-3 left-3 bg-rose-600 text-white text-xs font-bold px-2.5 py-1 rounded-md">
-                    {product.discount}% OFF
-                  </span>
+              <div className="relative aspect-4/5 w-full bg-white rounded-2xl overflow-hidden shadow-xs border border-neutral-200 select-none">
+                {isVideoActive && product.video ? (
+                  <video
+                    src={product.video}
+                    controls
+                    autoPlay
+                    loop
+                    className="w-full h-full object-contain bg-black"
+                  />
+                ) : (
+                  <>
+                    <img
+                      src={product.images[selectedImageIndex] || product.images[0]}
+                      alt={product.name}
+                      className="w-full h-full object-cover object-center"
+                    />
+                    {product.discount > 0 && (
+                      <span className="absolute top-3 left-3 bg-rose-600 text-white text-xs font-bold px-2.5 py-1 rounded-md">
+                        {product.discount}% OFF
+                      </span>
+                    )}
+
+                    {/* Photo Counter */}
+                    <span className="absolute top-3 right-3 bg-black/70 text-white text-[10px] font-mono px-2 py-0.5 rounded-md">
+                      {selectedImageIndex + 1}/{product.images.length}
+                    </span>
+
+                    {/* Roll Left Arrow (<) */}
+                    {product.images.length > 1 && (
+                      <button
+                        type="button"
+                        onClick={handleRollLeft}
+                        className="absolute left-2 top-1/2 -translate-y-1/2 w-9 h-9 rounded-full bg-white/90 hover:bg-black text-black hover:text-white shadow-md flex items-center justify-center border border-neutral-200 transition-all z-10"
+                        title="Roll Left"
+                      >
+                        <ChevronLeft className="w-4 h-4" />
+                      </button>
+                    )}
+
+                    {/* Roll Right Arrow (>) */}
+                    {product.images.length > 1 && (
+                      <button
+                        type="button"
+                        onClick={handleRollRight}
+                        className="absolute right-2 top-1/2 -translate-y-1/2 w-9 h-9 rounded-full bg-white/90 hover:bg-black text-black hover:text-white shadow-md flex items-center justify-center border border-neutral-200 transition-all z-10"
+                        title="Roll Right"
+                      >
+                        <ChevronRight className="w-4 h-4" />
+                      </button>
+                    )}
+                  </>
                 )}
               </div>
 
-              {/* Thumbnails */}
+              {/* Thumbnails + Video Button */}
               <div className="grid grid-cols-4 gap-2">
                 {product.images.map((img, idx) => (
                   <button
                     key={idx}
-                    onClick={() => handleThumbnailClick(idx)}
+                    onClick={() => {
+                      setIsVideoActive(false);
+                      handleThumbnailClick(idx);
+                    }}
                     className={`aspect-square rounded-lg overflow-hidden border-2 transition-all ${
-                      selectedImageIndex === idx
+                      !isVideoActive && selectedImageIndex === idx
                         ? 'border-neutral-900 ring-2 ring-neutral-900/20'
                         : 'border-neutral-200 hover:border-neutral-400'
                     }`}
@@ -147,6 +221,21 @@ export const QuickViewModal: React.FC = () => {
                     <img src={img} alt="thumb" className="w-full h-full object-cover" />
                   </button>
                 ))}
+
+                {product.video && (
+                  <button
+                    type="button"
+                    onClick={() => setIsVideoActive(!isVideoActive)}
+                    className={`aspect-square rounded-lg overflow-hidden border-2 transition-all flex flex-col items-center justify-center ${
+                      isVideoActive
+                        ? 'border-rose-600 bg-rose-50 ring-2 ring-rose-600/20 text-rose-600'
+                        : 'border-rose-200 bg-rose-50/70 text-rose-500 hover:border-rose-400'
+                    }`}
+                  >
+                    <Play className="w-4 h-4 fill-current" />
+                    <span className="text-[8px] font-mono font-bold uppercase mt-0.5">Video</span>
+                  </button>
+                )}
               </div>
             </div>
 
@@ -198,45 +287,47 @@ export const QuickViewModal: React.FC = () => {
                   </span>
                 </div>
 
-                {/* Color Selection */}
-                <div className="space-y-2">
-                  <div className="flex items-center justify-between text-xs">
-                    <span className="font-bold text-neutral-800 flex items-center gap-1.5">
-                      <span>Color:</span>
-                      <span className="text-neutral-900 font-extrabold bg-neutral-100 px-2 py-0.5 rounded border border-neutral-200">
-                        {selectedColor}
+                {/* Color Selection (Only if product has colors configured) */}
+                {product.colors && product.colors.length > 0 && (
+                  <div className="space-y-2">
+                    <div className="flex items-center justify-between text-xs">
+                      <span className="font-bold text-neutral-800 flex items-center gap-1.5">
+                        <span>Color:</span>
+                        <span className="text-neutral-900 font-extrabold bg-neutral-100 px-2 py-0.5 rounded border border-neutral-200">
+                          {selectedColor}
+                        </span>
                       </span>
-                    </span>
-                    <span className="text-[10px] text-emerald-700 font-mono font-medium">
-                      ✓ Changes Photo
-                    </span>
+                      <span className="text-[10px] text-emerald-700 font-mono font-medium">
+                        ✓ Changes Photo
+                      </span>
+                    </div>
+                    <div className="flex items-center gap-2 flex-wrap">
+                      {product.colors.map((c, cIdx) => (
+                        <button
+                          key={c.name}
+                          onClick={() => handleColorSelect(c.name, cIdx)}
+                          className={`w-7 h-7 rounded-full border-2 flex items-center justify-center transition-all ${
+                            selectedColor === c.name
+                              ? 'ring-2 ring-neutral-950 ring-offset-2 scale-110 border-white shadow-xs'
+                              : 'border-neutral-300 hover:scale-105 opacity-80 hover:opacity-100'
+                          }`}
+                          style={{ backgroundColor: c.hex }}
+                          title={`Select ${c.name}`}
+                        >
+                          {selectedColor === c.name && (
+                            <Check
+                              className={`w-3.5 h-3.5 ${
+                                c.name.includes('White') || c.hex.toLowerCase() === '#ffffff' || c.hex.toLowerCase() === '#f3f4f6'
+                                  ? 'text-black'
+                                  : 'text-white'
+                              }`}
+                            />
+                          )}
+                        </button>
+                      ))}
+                    </div>
                   </div>
-                  <div className="flex items-center gap-2 flex-wrap">
-                    {product.colors.map((c, cIdx) => (
-                      <button
-                        key={c.name}
-                        onClick={() => handleColorSelect(c.name, cIdx)}
-                        className={`w-7 h-7 rounded-full border-2 flex items-center justify-center transition-all ${
-                          selectedColor === c.name
-                            ? 'ring-2 ring-neutral-950 ring-offset-2 scale-110 border-white shadow-xs'
-                            : 'border-neutral-300 hover:scale-105 opacity-80 hover:opacity-100'
-                        }`}
-                        style={{ backgroundColor: c.hex }}
-                        title={`Select ${c.name}`}
-                      >
-                        {selectedColor === c.name && (
-                          <Check
-                            className={`w-3.5 h-3.5 ${
-                              c.name.includes('White') || c.hex.toLowerCase() === '#ffffff' || c.hex.toLowerCase() === '#f3f4f6'
-                                ? 'text-black'
-                                : 'text-white'
-                            }`}
-                          />
-                        )}
-                      </button>
-                    ))}
-                  </div>
-                </div>
+                )}
 
                 {/* Size Selection */}
                 <div className="space-y-2">

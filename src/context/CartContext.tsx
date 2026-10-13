@@ -120,17 +120,21 @@ export const CartProvider: React.FC<{ children: ReactNode }> = ({ children }) =>
     setToasts((prev) => prev.filter((t) => t.id !== id));
   };
 
-  const addToCart = (product: Product, size: string, color: string, quantity = 1) => {
+  const addToCart = (product: Product, size: string, color?: string, quantity = 1) => {
     if (!size) {
       showToast('Please select a size', 'Choose your desired size before adding to cart', 'error');
       return;
     }
-    if (!color) {
+    const hasColors = Boolean(product.colors && product.colors.length > 0);
+    // Color is strictly optional unless the product has multiple color variants
+    if (hasColors && (!color || !color.trim())) {
       showToast('Please select a color', 'Choose your preferred color option', 'error');
       return;
     }
 
-    const cartItemId = `${product.id}-${size}-${color.replace(/\s+/g, '-').toLowerCase()}`;
+    const effectiveColor = (color && color.trim()) || (hasColors ? product.colors[0]?.name : '') || '';
+    const colorKey = effectiveColor ? effectiveColor.replace(/\s+/g, '-').toLowerCase() : 'standard';
+    const cartItemId = `${product.id}-${size}-${colorKey}`;
 
     setCart((prevCart) => {
       const existingIndex = prevCart.findIndex((item) => item.cartItemId === cartItemId);
@@ -145,16 +149,17 @@ export const CartProvider: React.FC<{ children: ReactNode }> = ({ children }) =>
             cartItemId,
             product,
             selectedSize: size,
-            selectedColor: color,
+            selectedColor: effectiveColor,
             quantity
           }
         ];
       }
     });
 
+    const variantLabel = effectiveColor ? `${size} · ${effectiveColor}` : size;
     showToast(
       'Added to Cart!',
-      `${product.name} (${size} · ${color})`,
+      `${product.name} (${variantLabel})`,
       'success'
     );
   };

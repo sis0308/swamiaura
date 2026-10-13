@@ -50,6 +50,35 @@
         "cancelledAt": { "type": "string", "description": "Cancellation timestamp" }
       },
       "required": ["orderNumber", "customerName", "customerPhone", "items", "grandTotal", "status"]
+    },
+    "Category": {
+      "title": "Category",
+      "description": "Store T-Shirt category collection",
+      "type": "object",
+      "properties": {
+        "id": { "type": "string", "description": "Category document ID" },
+        "slug": { "type": "string", "description": "URL slug" },
+        "name": { "type": "string", "description": "Collection display name" },
+        "shortDescription": { "type": "string", "description": "Brief description" },
+        "image": { "type": "string", "description": "Cover image URL or data" },
+        "productCount": { "type": "number", "description": "Number of styles" },
+        "badge": { "type": "string", "description": "Promotional tag" }
+      },
+      "required": ["name", "slug", "image"]
+    }
+  },
+  "firestore": {
+    "/products/{productId}": {
+      "schema": "Product",
+      "description": "Catalog of all t-shirts"
+    },
+    "/categories/{categoryId}": {
+      "schema": "Category",
+      "description": "Collections of t-shirt categories"
+    },
+    "/orders/{orderId}": {
+      "schema": "Order",
+      "description": "Customer purchase orders"
     }
   }
 }

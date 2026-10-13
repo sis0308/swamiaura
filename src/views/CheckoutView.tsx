@@ -130,7 +130,7 @@ export const CheckoutView: React.FC = () => {
     const itemsBreakdown = cart
       .map(
         (item) =>
-          `• *${item.product.name}*\n  Size: *${item.selectedSize}* | Color: *${item.selectedColor}* | Qty: *${item.quantity}* | ₹${item.product.price * item.quantity}`
+          `• *${item.product.name}*\n  Size: *${item.selectedSize}*${item.selectedColor ? ` | Color: *${item.selectedColor}*` : ''} | Qty: *${item.quantity}* | ₹${item.product.price * item.quantity}`
       )
       .join('\n');
 
@@ -177,7 +177,7 @@ Support & Help: +91 77560 61273 (TEEZOON Studio)`;
     const itemList = placedOrderSummary.items
       .map(
         (i: any) =>
-          `• ${i.product.name} (Size: ${i.selectedSize}, Color: ${i.selectedColor}, Qty: ${i.quantity}) - ₹${i.product.price * i.quantity}`
+          `• ${i.product.name} (Size: ${i.selectedSize}${i.selectedColor ? `, Color: ${i.selectedColor}` : ''}, Qty: ${i.quantity}) - ₹${i.product.price * i.quantity}`
       )
       .join('\n');
 

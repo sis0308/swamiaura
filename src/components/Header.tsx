@@ -18,7 +18,6 @@ import {
   Youtube
 } from 'lucide-react';
 import { motion, AnimatePresence } from 'motion/react';
-import { CATEGORIES } from '../data/categories';
 
 export const Header: React.FC = () => {
   const {
@@ -29,7 +28,7 @@ export const Header: React.FC = () => {
     currentRoute,
     navigateTo
   } = useCart();
-  const { adminSession } = useStore();
+  const { adminSession, categories } = useStore();
 
   const [mobileMenuOpen, setMobileMenuOpen] = useState(false);
   const [categoriesDropdownOpen, setCategoriesDropdownOpen] = useState(false);
@@ -223,7 +222,7 @@ export const Header: React.FC = () => {
                           >
                             <div className="flex items-center justify-between px-3 py-2 border-b border-gray-100 mb-2">
                               <span className="text-[10px] font-bold uppercase tracking-widest text-gray-400">
-                                Categories (10)
+                                Categories ({categories.length})
                               </span>
                               <button
                                 onClick={() => handleNavClick('/shop')}
@@ -233,7 +232,7 @@ export const Header: React.FC = () => {
                               </button>
                             </div>
                             <div className="grid grid-cols-1 gap-1 max-h-[380px] overflow-y-auto pr-1">
-                              {CATEGORIES.map((cat) => (
+                              {categories.map((cat) => (
                                 <button
                                   key={cat.id}
                                   onClick={() => handleNavClick(`/category/${cat.slug}`)}
@@ -466,7 +465,7 @@ export const Header: React.FC = () => {
                     Shop Categories
                   </p>
                   <div className="grid grid-cols-2 gap-2">
-                    {CATEGORIES.slice(0, 6).map((cat) => (
+                    {categories.slice(0, 8).map((cat) => (
                       <button
                         key={cat.id}
                         onClick={() => handleNavClick(`/category/${cat.slug}`)}

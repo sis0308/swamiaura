@@ -7,6 +7,11 @@ service cloud.firestore {
       allow read, write: if true;
     }
 
+    // Categories catalog: readable by all shoppers, manageable by admin
+    match /categories/{categoryId} {
+      allow read, write: if true;
+    }
+
     // Orders: placeable by buyers, viewable & editable by admin
     match /orders/{orderId} {
       allow read, write: if true;

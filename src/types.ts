@@ -5,6 +5,22 @@ export interface ProductColor {
   image?: string;
 }
 
+export interface CustomerReview {
+  id: string;
+  author: string;
+  rating: number;
+  date: string;
+  comment: string;
+  verified?: boolean;
+}
+
+export interface DeliveryDetails {
+  standardDelivery?: string;
+  shippingPolicy?: string;
+  returnPolicy?: string;
+  codAvailable?: boolean;
+}
+
 export interface Product {
   id: string;
   name: string;
@@ -29,6 +45,11 @@ export interface Product {
   isOffer?: boolean;
   stock: number;
   tags: string[];
+  video?: string;
+  videoThumbnail?: string;
+  fabricSpecs?: string[];
+  deliveryDetails?: DeliveryDetails;
+  customerReviews?: CustomerReview[];
 }
 
 export interface Category {

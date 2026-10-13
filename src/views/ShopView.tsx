@@ -1,5 +1,4 @@
 import React, { useState, useEffect, useMemo } from 'react';
-import { CATEGORIES } from '../data/categories';
 import { FilterState, Product } from '../types';
 import { ProductGrid } from '../components/ProductGrid';
 import { ProductFilters } from '../components/ProductFilters';
@@ -17,7 +16,7 @@ import { motion, AnimatePresence } from 'motion/react';
 
 export const ShopView: React.FC = () => {
   const { currentRoute, navigateTo } = useCart();
-  const { products } = useStore();
+  const { products, categories } = useStore();
   const [mobileFiltersOpen, setMobileFiltersOpen] = useState(false);
 
   // Initialize filter state
@@ -159,7 +158,7 @@ export const ShopView: React.FC = () => {
     return result;
   }, [filters, products]);
 
-  const activeCategoryObj = CATEGORIES.find((c) => c.slug === filters.category);
+  const activeCategoryObj = categories.find((c) => c.slug === filters.category);
 
   return (
     <div className="bg-[#FAFAFA] min-h-screen pb-24">
@@ -202,9 +201,9 @@ export const ShopView: React.FC = () => {
                     : 'bg-neutral-900 text-neutral-300 hover:bg-neutral-800'
                 }`}
               >
-                All (24)
+                All ({products.length})
               </button>
-              {CATEGORIES.slice(0, 5).map((c) => (
+              {categories.slice(0, 6).map((c) => (
                 <button
                   key={c.id}
                   onClick={() => {

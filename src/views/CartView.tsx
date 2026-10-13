@@ -141,8 +141,12 @@ export const CartView: React.FC = () => {
                         <span className="bg-neutral-100 text-neutral-800 px-2 py-0.5 rounded font-bold">
                           Size: {item.selectedSize}
                         </span>
-                        <span>·</span>
-                        <span>Color: {item.selectedColor}</span>
+                        {item.selectedColor && (
+                          <>
+                            <span>·</span>
+                            <span>Color: {item.selectedColor}</span>
+                          </>
+                        )}
                       </div>
                       <p className="text-xs font-semibold text-neutral-900 sm:hidden pt-1">
                         ₹{item.product.price} each

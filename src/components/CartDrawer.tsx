@@ -152,10 +152,14 @@ export const CartDrawer: React.FC = () => {
                           <span className="bg-neutral-100 text-neutral-800 px-1.5 py-0.5 rounded font-bold">
                             Size: {item.selectedSize}
                           </span>
-                          <span>·</span>
-                          <span className="truncate max-w-[100px]">
-                            Color: {item.selectedColor}
-                          </span>
+                          {item.selectedColor && (
+                            <>
+                              <span>·</span>
+                              <span className="truncate max-w-[100px]">
+                                Color: {item.selectedColor}
+                              </span>
+                            </>
+                          )}
                         </div>
                       </div>
 

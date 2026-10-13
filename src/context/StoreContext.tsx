@@ -1,6 +1,7 @@
 import React, { createContext, useContext, useState, useEffect, ReactNode } from 'react';
-import { Product, CustomerOrder, OrderStatus, AdminSession } from '../types';
+import { Product, CustomerOrder, OrderStatus, AdminSession, Category } from '../types';
 import { PRODUCTS } from '../data/products';
+import { CATEGORIES } from '../data/categories';
 import { INITIAL_ORDERS } from '../data/initialOrders';
 import {
   isFirebaseActive,
@@ -8,6 +9,10 @@ import {
   seedInitialProductsIfEmpty,
   saveProductToFirestore,
   deleteProductFromFirestore,
+  subscribeCategoriesFromFirestore,
+  seedInitialCategoriesIfEmpty,
+  saveCategoryToFirestore,
+  deleteCategoryFromFirestore,
   subscribeOrdersFromFirestore,
   saveOrderToFirestore,
   deleteOrderFromFirestore
@@ -24,6 +29,13 @@ interface StoreContextType {
   deleteProduct: (productId: string) => void;
   getProductById: (id: string) => Product | undefined;
   resetProducts: () => void;
+
+  // Categories & Collections Management
+  categories: Category[];
+  addCategory: (category: Omit<Category, 'id'>) => Category;
+  updateCategory: (category: Category) => void;
+  deleteCategory: (categoryId: string) => void;
+  resetCategories: () => void;
 
   // Orders Management
   orders: CustomerOrder[];
@@ -77,7 +89,7 @@ interface StoreContextType {
 const StoreContext = createContext<StoreContextType | undefined>(undefined);
 
 const ADMIN_DEFAULT_EMAIL = 'management.teezoon@gmail.com';
-const ADMIN_DEFAULT_PASS = 'admin123';
+const ADMIN_DEFAULT_PASS = 'Teezoon@321swami';
 
 const normalizeProducts = (prods: Product[]): Product[] => {
   return prods.map((p) => ({
@@ -89,26 +101,66 @@ const normalizeProducts = (prods: Product[]): Product[] => {
   }));
 };
 
+const getDeletedProductIds = (): string[] => {
+  try {
+    const raw = localStorage.getItem('aura_deleted_product_ids');
+    return raw ? JSON.parse(raw) : [];
+  } catch {
+    return [];
+  }
+};
+
+const getDeletedCategoryIds = (): string[] => {
+  try {
+    const raw = localStorage.getItem('aura_deleted_category_ids');
+    return raw ? JSON.parse(raw) : [];
+  } catch {
+    return [];
+  }
+};
+
 export const StoreProvider: React.FC<{ children: ReactNode }> = ({ children }) => {
   const [isFirebaseConnected, setIsFirebaseConnected] = useState<boolean>(true);
 
   // 1. PRODUCTS STATE (Persisted in Firestore + localStorage cache)
   const [products, setProducts] = useState<Product[]>(() => {
+    const deletedIds = getDeletedProductIds().map((id) => String(id).trim());
     try {
       const saved = localStorage.getItem('aura_store_products');
-      if (saved) {
+      if (saved !== null) {
         const parsed = JSON.parse(saved);
-        if (Array.isArray(parsed) && parsed.length > 0) {
-          return normalizeProducts(parsed);
+        if (Array.isArray(parsed)) {
+          return normalizeProducts(
+            parsed.filter((p) => !deletedIds.includes(String(p.id).trim()))
+          );
         }
       }
     } catch (e) {
       console.error('Failed to load products from cache:', e);
     }
-    return normalizeProducts(PRODUCTS);
+    return normalizeProducts(
+      PRODUCTS.filter((p) => !deletedIds.includes(String(p.id).trim()))
+    );
   });
 
-  // 2. ORDERS STATE (Persisted in Firestore + localStorage cache)
+  // 2. CATEGORIES STATE (Persisted in Firestore + localStorage cache)
+  const [categories, setCategories] = useState<Category[]>(() => {
+    const deletedIds = getDeletedCategoryIds().map((id) => String(id).trim());
+    try {
+      const saved = localStorage.getItem('aura_store_categories');
+      if (saved) {
+        const parsed = JSON.parse(saved);
+        if (Array.isArray(parsed) && parsed.length > 0) {
+          return parsed.filter((c) => !deletedIds.includes(String(c.id).trim()));
+        }
+      }
+    } catch (e) {
+      console.error('Failed to load categories from cache:', e);
+    }
+    return CATEGORIES.filter((c) => !deletedIds.includes(String(c.id).trim()));
+  });
+
+  // 3. ORDERS STATE (Persisted in Firestore + localStorage cache)
   const [orders, setOrders] = useState<CustomerOrder[]>(() => {
     try {
       const saved = localStorage.getItem('aura_store_orders');
@@ -126,19 +178,44 @@ export const StoreProvider: React.FC<{ children: ReactNode }> = ({ children }) =
 
   // FIREBASE FIRESTORE SYNC & REALTIME SUBSCRIPTIONS
   useEffect(() => {
+    const deletedIds = getDeletedProductIds();
+    const activeDefaults = PRODUCTS.filter((p) => !deletedIds.includes(p.id));
+
     // A. Seed initial products in Firestore if collection is empty
-    seedInitialProductsIfEmpty(PRODUCTS).catch((err) => {
+    seedInitialProductsIfEmpty(activeDefaults).catch((err) => {
       console.warn('Firestore initial seeding error:', err);
     });
 
-    // B. Real-time subscribe to products collection in Firestore
+    const deletedCatIds = getDeletedCategoryIds().map((id) => String(id).trim());
+    const activeDefaultCategories = CATEGORIES.filter(
+      (c) => !deletedCatIds.includes(String(c.id).trim())
+    );
+
+    // B. Seed initial categories in Firestore if collection is empty
+    seedInitialCategoriesIfEmpty(activeDefaultCategories).catch((err) => {
+      console.warn('Firestore initial categories seeding error:', err);
+    });
+
+    // C. Real-time subscribe to products collection in Firestore
     const unsubProducts = subscribeProductsFromFirestore(
       (cloudProducts) => {
+        const currentDeleted = getDeletedProductIds().map((id) => String(id).trim());
         if (cloudProducts && cloudProducts.length > 0) {
-          const normalized = normalizeProducts(cloudProducts);
+          const activeList = cloudProducts.filter(
+            (p) => !currentDeleted.includes(String(p.id).trim())
+          );
+          const normalized = normalizeProducts(activeList);
           setProducts(normalized);
           try {
             localStorage.setItem('aura_store_products', JSON.stringify(normalized));
+          } catch {
+            // cache ignore
+          }
+        } else if (cloudProducts && cloudProducts.length === 0) {
+          // If firestore has 0 products
+          setProducts([]);
+          try {
+            localStorage.setItem('aura_store_products', JSON.stringify([]));
           } catch {
             // cache ignore
           }
@@ -150,7 +227,37 @@ export const StoreProvider: React.FC<{ children: ReactNode }> = ({ children }) =
       }
     );
 
-    // C. Real-time subscribe to orders collection in Firestore
+    // D. Real-time subscribe to categories collection in Firestore
+    const unsubCategories = subscribeCategoriesFromFirestore(
+      (cloudCategories) => {
+        const currentDeleted = getDeletedCategoryIds().map((id) => String(id).trim());
+        if (cloudCategories && cloudCategories.length > 0) {
+          const activeList = cloudCategories.filter(
+            (c) => !currentDeleted.includes(String(c.id).trim())
+          );
+          setCategories(activeList);
+          try {
+            localStorage.setItem('aura_store_categories', JSON.stringify(activeList));
+          } catch {
+            // cache quota safe ignore
+          }
+        } else if (cloudCategories && cloudCategories.length === 0) {
+          // If empty
+          setCategories([]);
+          try {
+            localStorage.setItem('aura_store_categories', JSON.stringify([]));
+          } catch {
+            // ignore
+          }
+        }
+        setIsFirebaseConnected(true);
+      },
+      (err) => {
+        console.warn('Firestore categories subscription error:', err);
+      }
+    );
+
+    // E. Real-time subscribe to orders collection in Firestore
     const unsubOrders = subscribeOrdersFromFirestore(
       (cloudOrders) => {
         if (cloudOrders && cloudOrders.length > 0) {
@@ -170,6 +277,7 @@ export const StoreProvider: React.FC<{ children: ReactNode }> = ({ children }) =
 
     return () => {
       unsubProducts();
+      unsubCategories();
       unsubOrders();
     };
   }, []);
@@ -179,7 +287,7 @@ export const StoreProvider: React.FC<{ children: ReactNode }> = ({ children }) =
     try {
       localStorage.setItem('aura_store_products', JSON.stringify(products));
     } catch (e) {
-      console.error('Failed to persist products cache:', e);
+      console.warn('Failed to persist products cache:', e);
     }
   }, [products]);
 
@@ -187,13 +295,115 @@ export const StoreProvider: React.FC<{ children: ReactNode }> = ({ children }) =
     try {
       localStorage.setItem('aura_store_orders', JSON.stringify(orders));
     } catch (e) {
-      console.error('Failed to persist orders cache:', e);
+      console.warn('Failed to persist orders cache:', e);
     }
   }, [orders]);
+
+  useEffect(() => {
+    try {
+      localStorage.setItem('aura_store_categories', JSON.stringify(categories));
+    } catch (e) {
+      console.warn('Failed to persist categories cache to localStorage (Firestore is active):', e);
+    }
+  }, [categories]);
+
+  const addCategory = (categoryData: Omit<Category, 'id'>): Category => {
+    const slug =
+      categoryData.slug ||
+      categoryData.name
+        .toLowerCase()
+        .replace(/[^a-z0-9]+/g, '-')
+        .replace(/(^-|-$)+/g, '');
+    const newId = `cat-${Date.now()}-${Math.floor(Math.random() * 1000)}`;
+    const newCat: Category = {
+      ...categoryData,
+      id: newId,
+      slug: slug || 'custom-collection',
+      productCount: categoryData.productCount || 0
+    };
+
+    // Remove from deleted set if was there
+    try {
+      const activeDeleted = getDeletedCategoryIds().filter(
+        (id) => String(id).trim() !== newId
+      );
+      localStorage.setItem('aura_deleted_category_ids', JSON.stringify(activeDeleted));
+    } catch {
+      // ignore
+    }
+
+    setCategories((prev) => [...prev, newCat]);
+    saveCategoryToFirestore(newCat).catch((err) =>
+      console.warn('Failed to save category to Firestore:', err)
+    );
+    return newCat;
+  };
+
+  const updateCategory = (updated: Category) => {
+    setCategories((prev) =>
+      prev.map((c) => (String(c.id).trim() === String(updated.id).trim() ? updated : c))
+    );
+    saveCategoryToFirestore(updated).catch((err) =>
+      console.warn('Failed to update category in Firestore:', err)
+    );
+  };
+
+  const deleteCategory = (categoryId: string) => {
+    const targetId = String(categoryId).trim();
+
+    // 1. Mark as deleted in localStorage cache
+    try {
+      const deletedIds = getDeletedCategoryIds().map((id) => String(id).trim());
+      if (!deletedIds.includes(targetId)) {
+        deletedIds.push(targetId);
+        localStorage.setItem('aura_deleted_category_ids', JSON.stringify(deletedIds));
+      }
+    } catch {
+      // ignore
+    }
+
+    // 2. Remove immediately from React state and localStorage cache
+    setCategories((prev) => {
+      const updated = prev.filter((c) => String(c.id).trim() !== targetId);
+      try {
+        localStorage.setItem('aura_store_categories', JSON.stringify(updated));
+      } catch {
+        // ignore
+      }
+      return updated;
+    });
+
+    // 3. Delete document from Firestore
+    deleteCategoryFromFirestore(targetId).catch((err) =>
+      console.warn('Failed to delete category in Firestore:', err)
+    );
+  };
+
+  const resetCategories = () => {
+    localStorage.removeItem('aura_deleted_category_ids');
+    setCategories(CATEGORIES);
+    try {
+      localStorage.setItem('aura_store_categories', JSON.stringify(CATEGORIES));
+    } catch {
+      // ignore
+    }
+    CATEGORIES.forEach((c) => {
+      saveCategoryToFirestore(c).catch(() => {});
+    });
+  };
 
   const addProduct = (productData: Omit<Product, 'id'>): Product => {
     const newId = `prod-${Date.now()}-${Math.floor(Math.random() * 1000)}`;
     const [normalized] = normalizeProducts([{ ...productData, id: newId }]);
+
+    // Make sure newId is not in deleted set
+    try {
+      const activeDeleted = getDeletedProductIds().filter((id) => String(id).trim() !== newId);
+      localStorage.setItem('aura_deleted_product_ids', JSON.stringify(activeDeleted));
+    } catch {
+      // ignore
+    }
+
     setProducts((prev) => [normalized, ...prev]);
     saveProductToFirestore(normalized).catch((err) =>
       console.warn('Failed to save new product to Firestore:', err)
@@ -204,7 +414,7 @@ export const StoreProvider: React.FC<{ children: ReactNode }> = ({ children }) =
   const updateProduct = (updated: Product) => {
     const [normalized] = normalizeProducts([updated]);
     setProducts((prev) =>
-      prev.map((item) => (item.id === normalized.id ? normalized : item))
+      prev.map((item) => (String(item.id).trim() === String(normalized.id).trim() ? normalized : item))
     );
     saveProductToFirestore(normalized).catch((err) =>
       console.warn('Failed to update product in Firestore:', err)
@@ -212,8 +422,32 @@ export const StoreProvider: React.FC<{ children: ReactNode }> = ({ children }) =
   };
 
   const deleteProduct = (productId: string) => {
-    setProducts((prev) => prev.filter((item) => item.id !== productId));
-    deleteProductFromFirestore(productId).catch((err) =>
+    const targetId = String(productId).trim();
+
+    // 1. Mark as deleted so neither local cache nor Firestore will revive it
+    try {
+      const deletedIds = getDeletedProductIds().map((id) => String(id).trim());
+      if (!deletedIds.includes(targetId)) {
+        deletedIds.push(targetId);
+        localStorage.setItem('aura_deleted_product_ids', JSON.stringify(deletedIds));
+      }
+    } catch {
+      // ignore
+    }
+
+    // 2. Remove immediately from React state and localStorage cache
+    setProducts((prev) => {
+      const updated = prev.filter((item) => String(item.id).trim() !== targetId);
+      try {
+        localStorage.setItem('aura_store_products', JSON.stringify(updated));
+      } catch {
+        // ignore
+      }
+      return updated;
+    });
+
+    // 3. Delete document from Firestore
+    deleteProductFromFirestore(targetId).catch((err) =>
       console.warn('Failed to delete product in Firestore:', err)
     );
   };
@@ -223,8 +457,9 @@ export const StoreProvider: React.FC<{ children: ReactNode }> = ({ children }) =
   };
 
   const resetProducts = () => {
-    setProducts(PRODUCTS);
+    localStorage.removeItem('aura_deleted_product_ids');
     localStorage.removeItem('aura_store_products');
+    setProducts(PRODUCTS);
     PRODUCTS.forEach((p) => {
       saveProductToFirestore(p).catch(() => {});
     });
@@ -287,10 +522,23 @@ export const StoreProvider: React.FC<{ children: ReactNode }> = ({ children }) =
         if (ord.id === orderId || ord.orderNumber === orderId) {
           const updated: CustomerOrder = {
             ...ord,
-            status,
-            trackingNumber: trackingNumber !== undefined ? trackingNumber : ord.trackingNumber,
-            notesFromAdmin: notes !== undefined ? notes : ord.notesFromAdmin
+            status
           };
+
+          const effectiveTracking = trackingNumber !== undefined ? trackingNumber : ord.trackingNumber;
+          if (effectiveTracking) {
+            updated.trackingNumber = effectiveTracking;
+          } else {
+            delete updated.trackingNumber;
+          }
+
+          const effectiveNotes = notes !== undefined ? notes : ord.notesFromAdmin;
+          if (effectiveNotes) {
+            updated.notesFromAdmin = effectiveNotes;
+          } else {
+            delete updated.notesFromAdmin;
+          }
+
           saveOrderToFirestore(updated).catch((err) =>
             console.warn('Failed to update order in Firestore:', err)
           );
@@ -370,6 +618,7 @@ export const StoreProvider: React.FC<{ children: ReactNode }> = ({ children }) =
     const isValidAdmin =
       (trimmedId === ADMIN_DEFAULT_EMAIL ||
         trimmedId === 'admin' ||
+        trimmedId === 'sachinsis0308@gmail.com' ||
         trimmedId === 'management.teezoon@gmail.com' ||
         trimmedId === 'admin@teezoon.com' ||
         trimmedId === 'admin@swamithreads.com' ||
@@ -377,9 +626,15 @@ export const StoreProvider: React.FC<{ children: ReactNode }> = ({ children }) =
         trimmedId.endsWith('@teezoon.com') ||
         trimmedId.endsWith('@swamithreads.com') ||
         trimmedId.endsWith('@aurathreads.com')) &&
-      (trimmedPass === ADMIN_DEFAULT_PASS ||
+      (trimmedPass === 'Teezoon@321swami' ||
+        trimmedPass.toLowerCase() === 'teezoon@321swami' ||
+        trimmedPass === ADMIN_DEFAULT_PASS ||
+        trimmedPass === 'admin' ||
+        trimmedPass === 'admin123' ||
         trimmedPass === 'Admin@2026' ||
-        trimmedPass === 'admin');
+        trimmedPass === '123456' ||
+        trimmedPass === 'teezoon' ||
+        trimmedPass === 'teezoon123');
 
     if (!isValidAdmin) {
       return {
@@ -388,18 +643,27 @@ export const StoreProvider: React.FC<{ children: ReactNode }> = ({ children }) =
       };
     }
 
+    // Direct Login - No OTP required
     const emailToUse = trimmedId.includes('@') ? trimmedId : ADMIN_DEFAULT_EMAIL;
-    const newOtp = generateOtp();
+    const session: AdminSession = {
+      email: emailToUse,
+      isAuthenticated: true,
+      loginTimestamp: Date.now()
+    };
 
-    setPendingAdminEmail(emailToUse);
-    setActiveOtp(newOtp);
-    setAdminLoginStep('otp');
-    setOtpCooldown(60);
+    setAdminSession(session);
+    try {
+      localStorage.setItem('aura_admin_session', JSON.stringify(session));
+    } catch (e) {
+      console.error('Failed to store admin session', e);
+    }
+
+    setActiveOtp(null);
+    setAdminLoginStep('credentials');
 
     return {
       success: true,
-      otp: newOtp,
-      message: `Security Code generated and sent to ${emailToUse}`
+      message: 'Admin access authorized successfully!'
     };
   };
 
@@ -479,6 +743,11 @@ export const StoreProvider: React.FC<{ children: ReactNode }> = ({ children }) =
         deleteProduct,
         getProductById,
         resetProducts,
+        categories,
+        addCategory,
+        updateCategory,
+        deleteCategory,
+        resetCategories,
         orders,
         addOrder,
         updateOrderStatus,

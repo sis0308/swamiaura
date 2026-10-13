@@ -1,6 +1,6 @@
 import React from 'react';
 import { FilterState } from '../types';
-import { CATEGORIES } from '../data/categories';
+import { useStore } from '../context/StoreContext';
 import { X, RotateCcw, SlidersHorizontal, Check, Star } from 'lucide-react';
 
 interface ProductFiltersProps {
@@ -34,6 +34,8 @@ export const ProductFilters: React.FC<ProductFiltersProps> = ({
   isMobileDrawer = false,
   onCloseMobileDrawer
 }) => {
+  const { categories } = useStore();
+
   const handleCategorySelect = (slug: string) => {
     onFilterChange({
       ...filters,
@@ -153,7 +155,7 @@ export const ProductFilters: React.FC<ProductFiltersProps> = ({
           >
             <span>All Categories</span>
           </button>
-          {CATEGORIES.map((cat) => (
+          {categories.map((cat) => (
             <button
               key={cat.id}
               onClick={() => handleCategorySelect(cat.slug)}

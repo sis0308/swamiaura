@@ -17,8 +17,9 @@ export const ProductCard: React.FC<ProductCardProps> = ({ product }) => {
     navigateTo
   } = useCart();
 
+  const hasColors = Boolean(product.colors && product.colors.length > 0);
   const [selectedSize, setSelectedSize] = useState<string>(product.sizes[0] || 'M');
-  const [selectedColor, setSelectedColor] = useState<string>(product.colors[0]?.name || 'Standard');
+  const [selectedColor, setSelectedColor] = useState<string>(hasColors ? product.colors[0]?.name : '');
   const [currentImageIndex, setCurrentImageIndex] = useState(0);
   const [isHovered, setIsHovered] = useState(false);
 
@@ -26,6 +27,7 @@ export const ProductCard: React.FC<ProductCardProps> = ({ product }) => {
 
   const handleColorSelect = (e: React.MouseEvent, colorName: string, colorIdx: number) => {
     e.stopPropagation();
+    if (!hasColors) return;
     setSelectedColor(colorName);
     const colorObj = product.colors.find((c) => c.name === colorName);
     if (!colorObj) return;
@@ -186,24 +188,28 @@ export const ProductCard: React.FC<ProductCardProps> = ({ product }) => {
             </div>
           </div>
 
-          {/* Color Variations Circles */}
-          <div className="mt-2.5 flex items-center justify-between" onClick={(e) => e.stopPropagation()}>
-            <div className="flex items-center space-x-1.5">
-              {product.colors.map((c, cIdx) => (
-                <button
-                  key={c.name}
-                  onClick={(e) => handleColorSelect(e, c.name, cIdx)}
-                  title={`${c.name} (Click to see this color)`}
-                  className={`w-3.5 h-3.5 rounded-full border transition-all ${
-                    selectedColor === c.name
-                      ? 'ring-2 ring-black ring-offset-1 scale-110 border-white'
-                      : 'border-gray-300 hover:scale-105 opacity-80 hover:opacity-100'
-                  }`}
-                  style={{ backgroundColor: c.hex }}
-                  aria-label={`Select ${c.name}`}
-                />
-              ))}
-            </div>
+          {/* Color Variations Circles (Only shown if product has colors) */}
+          <div className="mt-2.5 flex items-center justify-between min-h-[16px]" onClick={(e) => e.stopPropagation()}>
+            {hasColors ? (
+              <div className="flex items-center space-x-1.5">
+                {product.colors.map((c, cIdx) => (
+                  <button
+                    key={c.name}
+                    onClick={(e) => handleColorSelect(e, c.name, cIdx)}
+                    title={`${c.name} (Click to see this color)`}
+                    className={`w-3.5 h-3.5 rounded-full border transition-all ${
+                      selectedColor === c.name
+                        ? 'ring-2 ring-black ring-offset-1 scale-110 border-white'
+                        : 'border-gray-300 hover:scale-105 opacity-80 hover:opacity-100'
+                    }`}
+                    style={{ backgroundColor: c.hex }}
+                    aria-label={`Select ${c.name}`}
+                  />
+                ))}
+              </div>
+            ) : (
+              <div />
+            )}
 
             {/* Rating badge */}
             <div className="flex items-center gap-1 text-[10px] text-neutral-500 font-mono">

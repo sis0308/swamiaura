@@ -1,11 +1,12 @@
 import React from 'react';
-import { CATEGORIES } from '../data/categories';
 import { useCart } from '../context/CartContext';
+import { useStore } from '../context/StoreContext';
 import { ArrowRight, Sparkles } from 'lucide-react';
 import { motion } from 'motion/react';
 
 export const CategorySection: React.FC = () => {
   const { navigateTo } = useCart();
+  const { categories, products } = useStore();
 
   return (
     <section className="py-16 sm:py-24 bg-[#F8F8F8] border-b border-neutral-200/60" id="categories-section">
@@ -22,7 +23,7 @@ export const CategorySection: React.FC = () => {
               Browse By Category
             </h2>
             <p className="text-sm text-neutral-600 mt-2 max-w-xl">
-              Explore 10 bespoke T-Shirt categories crafted for every silhouette, occasion, and lifestyle.
+              Explore {categories.length} bespoke T-Shirt collections crafted for every silhouette, occasion, and lifestyle.
             </p>
           </div>
 
@@ -35,9 +36,9 @@ export const CategorySection: React.FC = () => {
           </button>
         </div>
 
-        {/* 10 Categories Grid */}
+        {/* Categories Grid */}
         <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-5 gap-5">
-          {CATEGORIES.map((cat, index) => (
+          {categories.map((cat, index) => (
             <motion.div
               key={cat.id}
               initial={{ opacity: 0, y: 20 }}
@@ -65,9 +66,19 @@ export const CategorySection: React.FC = () => {
                   </span>
                 )}
 
-                <span className="absolute bottom-3 right-3 text-white text-[11px] font-semibold bg-black/60 backdrop-blur-md px-2 py-0.5 rounded">
-                  {cat.productCount} Styles
-                </span>
+                {(() => {
+                  const actualCount = products.filter(
+                    (p) =>
+                      p.categorySlug === cat.slug ||
+                      p.category?.toLowerCase() === cat.name.toLowerCase()
+                  ).length;
+                  const count = actualCount > 0 ? actualCount : (cat.productCount || 0);
+                  return (
+                    <span className="absolute bottom-3 right-3 text-white text-[11px] font-semibold bg-black/60 backdrop-blur-md px-2 py-0.5 rounded">
+                      {count > 0 ? `${count} Styles` : 'New Drop'}
+                    </span>
+                  );
+                })()}
               </div>
 
               {/* Card Body */}
